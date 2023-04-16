@@ -1118,8 +1118,10 @@ hcount
 	ret
 end_procedure_Sprite_DrawAt:
 	
-; // Records
-; // Game HUD
+; // ( 0 = left, 1 = right, 2 = up, 3 = down )
+; // ( false = left, true = right )
+; // Levels data
+; // Store current level live data
 ; // Draw and manage Title Screen
 	; ***********  Defining procedure : TitleScreen
 	;    Procedure type : User-defined procedure
