@@ -10,8 +10,8 @@ program Paganitzu;
 
 @export "resources/titlescreen.flf" "trse.bin" 256
 
-@include "variables.ras"
-@include "ui.ras"
+@include "variables.inc"
+@include "ui.inc"
 	
 begin
 	Memory::DisableInterrupts();

@@ -50,6 +50,8 @@ var
 	diamondTile_record = record
 			animationFrame : byte = 0;
 			frameCount : byte = 4;
+			frameDelay : byte = 20;
+			interFrameDelay : byte = 100; // Delay before animation starts.
 			points : byte = 1;
 	end;
 	diamondRecord : diamondTile_record;
@@ -57,18 +59,21 @@ var
 	spiderTile_record = record
 			animationFrame : byte = 0;
 			frameCount : byte = 2;
+			frameDelay : byte = 20;
 	end;
 	spiderRecord : spiderTile_record;
 	
 	snakeTile_record = record
 			animationFrame : byte = 0;
 			frameCount : byte = 2;
+			frameDelay : byte = 20;
 	end;
 	snakeRecord : snakeTile_record;
 	
 	playerTile_record = record
 			animationFrame : byte = 0;
-			frameCount : byte = 3;
+			frameCount : byte = 2;
+			frameDelay : byte = 20;
 			x, y : byte;
 			lastDirection : byte; // ( 0 = left, 1 = right, 2 = up, 3 = down )
 			facingDirection : boolean; // ( false = left, true = right )
@@ -80,10 +85,11 @@ var
 	gameGrid : array[gridWidth*gridHeight] of byte;
 	
 	Room0: array[] of byte = (WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, BrickTile, BrickTile, BrickTile, PipeTile+1, BrickTile,
-														 						  WallTile, BlankTile, WallTile, WallTile, WallTile, WallTile, WaterTile, WaterTile, PipeTile, PipeTile+5, WallTile, PipeTile+1, BrickTile,
-														 						  WallTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WaterTile, WaterTile, BrickTile, PipeTile+3, PipeTile, PipeTile+2, BrickTile,
-														 						  WallTile, BlankTile, RockTile, WallTile, WallTile, BlankTile, DirtTile, DirtTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
-														 						  WallTile, BlankTile, BlankTile, BlankTile, SnakeRightTile, WallTile, DirtTile, DirtTile, KeyTile, BlankTile, BlankTile, PipeTile+4, PipeTile,
-														 						  WallTile, BlankTile, WallTile, WallTile, WallTile, WallTile,WallTile, WallTile, WallTile, DiamondTile, DiamondTile, PipeTile+3, PipeTile+5,
-														 						  BrickTile, KeyTile, BlankTile, BlankTile, BlankTile, BlankTile, DiamondTile, DiamondTile, DiamondTile, BrickTile, BrickTile, BrickTile, PipeTile+5,
-														 						  BrickTile, BrickTile, BrickTile, BrickTile, KeyholeTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, PipeTile+5 )
+														WallTile, BlankTile, WallTile, WallTile, WallTile, WallTile, WaterTile, WaterTile, PipeTile, PipeTile+5, WallTile, PipeTile+1, BrickTile,
+														WallTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WaterTile, WaterTile, BrickTile, PipeTile+3, PipeTile, PipeTile+2, BrickTile,
+														WallTile, BlankTile, RockTile, WallTile, WallTile, BlankTile, DirtTile, DirtTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
+														WallTile, BlankTile, BlankTile, BlankTile, SnakeRightTile, WallTile, DirtTile, DirtTile, KeyTile, BlankTile, BlankTile, PipeTile+4, PipeTile,
+														WallTile, BlankTile, WallTile, WallTile, WallTile, WallTile,WallTile, WallTile, WallTile, DiamondTile, DiamondTile, PipeTile+3, PipeTile+5,
+														BrickTile, KeyTile, BlankTile, BlankTile, BlankTile, BlankTile, DiamondTile, DiamondTile, DiamondTile, BrickTile, BrickTile, BrickTile, PipeTile+5,
+														BrickTile, BrickTile, BrickTile, BrickTile, KeyholeTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, PipeTile+5 );
+														
