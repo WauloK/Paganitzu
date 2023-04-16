@@ -12,6 +12,7 @@ program Paganitzu;
 
 @include "variables.inc"
 @include "ui.inc"
+@include "player.inc"
 	
 begin
 	Memory::DisableInterrupts();
@@ -21,6 +22,17 @@ begin
 	TitleScreen();
 	// Draw Game HUD
 	DrawHUD();
+	
+	// Test
+	ResetPlayerGameStats();
+	InitRoomDraw(0);
+
+	while (gameStats.bonus > 0) then
+	begin
+		UpdateHUDNumbers();
+		gameStats.bonus := gameStats.bonus - 1;
+		for u := 0 to 20 do wait(50);
+	end;
 	
 	Loop();
 end.

@@ -5,7 +5,6 @@ begin
 	mym := #message;
 	strlen := Functions::SizeOfString(#message);
 	v := 0;
-	gameStats.titlePlayed := false;
 	Screen::Cls(1);
 	// Decompress the image to the screen
 	Compression::Decompress(#titledata, #screen);
@@ -46,4 +45,93 @@ begin
 	Sprite::SetSize(6,64);
 	Sprite::SetData(#HUDData);
 	Sprite::DrawAt(26,0,0,false);
+	// Set Sprite data to main game data
+	Sprite::SetSize(2,8);
+	Sprite::SetData(#spriteData);
+end;
+
+// Draw numbers on the screen padded and with trailing zeroes
+procedure DrawPadded(zscore : Integer; x, y: global byte);
+begin
+	u := x;
+	if (zscore < 1) then 
+	begin
+		Font::DrawTextAt("0",u+6,y,false);
+		return;
+	end;
+	if (zscore < 10000) then x := x + 1;
+	if (zscore < 1000) then x := x + 1;
+	if (zscore < 100) then x := x + 1;
+	if (zscore < 10) then x := x + 1;
+	Functions::IntegerToString(zscore);
+	Font::DrawTextAt(#Functions_s,x,y,false);	
+	Font::DrawTextAt("0",u+6,y,false);
+end;
+
+// Draw numbers on the screen padded
+procedure DrawBonusPadded(bscore : Integer; x, y: global byte);
+begin
+	u := x;
+	if (bscore < 1) then 
+	begin
+		Font::DrawTextAt("0",u+6,y,false);
+		return;
+	end;
+	if (bscore < 100) then
+	begin
+		Font::DrawTextAt(" ",x,y,false);
+		x := x + 1;
+	end;
+	if (bscore < 10) then
+	begin
+		Font::DrawTextAt(" ",x,y,false);
+		x := x + 1;
+	end;
+	Functions::IntegerToString(bscore);
+	Font::DrawTextAt(#Functions_s,x,y,false);	
+end;
+
+// Update HUD numbers
+procedure UpdateHUDNumbers();
+begin
+	Screen::SetPen(2);
+	Screen::SetPaper(0);
+	DrawPadded(gameStats.score,25,20);
+	// Draw room number
+	Functions::ByteToString(gameStats.room);
+	if (gameStats.room < 10) then
+	begin
+		Font::DrawTextAt(#Functions_s,29,7,false);
+		Font::DrawTextAt("0",28,7,false);
+	end
+	else
+	begin
+		Font::DrawTextAt(#Functions_s,28,7,false);
+	end;
+	// Draw lives left zero-padded
+	Functions::ByteToString(gameStats.lives);
+	Font::DrawTextAt(#Functions_s,29,33,false);
+	Font::DrawTextAt("0",28,33,false);
+	// Draw keys left zero-padded
+	Functions::ByteToString(gameStats.keys);
+	Font::DrawTextAt(#Functions_s,29,46,false);
+	Font::DrawTextAt("0",28,46,false);
+	// Draw bonus points aka timer
+	DrawBonusPadded(gameStats.bonus,27,59);
+end;
+
+// Initial room draw
+procedure InitRoomDraw(r : global byte);
+begin
+	for y := 0 to 8 do
+	begin
+		for x := 0 to 13 do
+		begin
+			case r of
+				0:
+						u := Room0[x+13*y];
+			end;
+			Sprite::DrawAt(x*2,y*8,u,false);
+		end;
+	end;	
 end;
