@@ -1,0 +1,26 @@
+program Paganitzu;
+@use "Screen"
+@use "Memory"
+@use "Compression"
+@use "Font"
+@use "Input"
+@use "Sound"
+@use "Functions"
+@use "Sprite"
+
+@export "images/titlescreen.flf" "trse.bin" 256
+
+@include "variables.ras"
+@include "ui.ras"
+	
+begin
+	Memory::DisableInterrupts();
+	// Set Graphics mode
+	Screen::SetMode(1);
+	// Display Titlescreen
+	TitleScreen();
+	// Draw Game HUD
+	DrawHUD();
+	
+	Loop();
+end.
