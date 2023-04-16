@@ -8,7 +8,7 @@ program Paganitzu;
 @use "Functions"
 @use "Sprite"
 
-@export "images/titlescreen.flf" "trse.bin" 256
+@export "resources/titlescreen.flf" "trse.bin" 256
 
 @include "variables.ras"
 @include "ui.ras"
