@@ -65,7 +65,7 @@ begin
 	if (zscore < 10) then x := x + 1;
 	Functions::IntegerToString(zscore);
 	Font::DrawTextAt(#Functions_s,x,y,false);	
-	Font::DrawTextAt("0",u+6,y,false);
+	Font::DrawTextAt("0",u+5,y,false);
 end;
 
 // Draw numbers on the screen padded
@@ -96,7 +96,7 @@ procedure UpdateHUDNumbers();
 begin
 	Screen::SetPen(2);
 	Screen::SetPaper(0);
-	DrawPadded(gameStats.score,25,20);
+	DrawPadded(gameStats.score,26,20);
 	// Draw room number
 	Functions::ByteToString(gameStats.room);
 	if (gameStats.room < 10) then
