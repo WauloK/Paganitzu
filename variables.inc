@@ -17,6 +17,7 @@ var
 		score : Integer;
 		hiScore : Integer;
 		gameRunning : boolean;
+		frameDelayMax : byte;
 	end;
 	gameStats : gameStats_record;
 	
@@ -34,9 +35,9 @@ var
 	const RockTile : byte = 19;
 	const WaterTile : byte = 20;					// To here
 	const SpiderTile : byte = 21;
-	const SnakeRightTile : byte = 23;
+	const SnakeTile : byte = 23;
 	const SnakeLeftTile : byte = 27;
-	const PlayerRightTile : byte = 31;
+	const PlayerTile : byte = 31;
 	const PlayerLeftTile : byte = 33;
 	
 	const gridWidth : byte = 13;
@@ -55,38 +56,35 @@ var
 	
 	// Tile records
 	diamondTile_record = record
-			animationFrame : byte = 0;
-			frameCount : byte = 4;
-			frameDelay : byte = 20;
-			frameDelayMax : byte = 20;
-			interFrameDelay : byte = 100; // Delay before animation starts.
-			interFrameMax : byte = 100;
-			points : byte = 1;
+			animationFrame : byte;
+			frameCount : byte;
+			frameDelay : byte;
+			frameDelayMax : byte;
+			interFrameDelay : byte; // Delay before animation starts.
+			interFrameDelayMax : byte;
+			points : byte;
 	end;
 	diamondRecord : diamondTile_record;
 	
 	spiderTile_record = record
-			animationFrame : byte = 0;
-			frameCount : byte = 2;
-			frameDelay : byte = 20;
-			frameDelayMax : byte = 20;
+			animationFrame : byte;
+			frameCount : byte;
+			frameDelay : byte;
 	end;
 	spiderRecord : spiderTile_record;
 	
 	snakeTile_record = record
-			animationFrame : byte = 0;
-			frameCount : byte = 2;
-			frameDelay : byte = 20;
-			frameDelayMax : byte = 20;
+			animationFrame : byte;
+			frameCount : byte;
+			frameDelay : byte;
 			facingDirection : boolean; // ( false = left, true = right )
 	end;
 	snakeRecord : snakeTile_record;
 	
 	playerTile_record = record
-			animationFrame : byte = 0;
-			frameCount : byte = 2;
-			frameDelay : byte = 20;
-			frameDelayMax : byte = 20;
+			animationFrame : byte;
+			frameCount : byte;
+			frameDelay : byte;
 			x, y : byte;
 			lastDirection : byte; // ( 0 = left, 1 = right, 2 = up, 3 = down )
 			facingDirection : boolean; // ( false = left, true = right )
@@ -102,7 +100,7 @@ var
 														WallTile, BlankTile, WallTile, WallTile, WallTile, WallTile, WaterTile, WaterTile, PipeTile, PipeTile+5, BrickTile, PipeTile+1, BrickTile,
 														WallTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WaterTile, WaterTile, BrickTile, PipeTile+3, PipeTile, PipeTile+2, BrickTile,
 														WallTile, BlankTile, RockTile, WallTile, WallTile, BlankTile, DirtTile, DirtTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
-														WallTile, BlankTile, BlankTile, BlankTile, SnakeRightTile, WallTile, DirtTile, DirtTile, KeyTile, BlankTile, BlankTile, PipeTile+4, PipeTile,
+														WallTile, BlankTile, BlankTile, BlankTile, SnakeTile, WallTile, DirtTile, DirtTile, KeyTile, BlankTile, BlankTile, PipeTile+4, PipeTile,
 														WallTile, BlankTile, WallTile, WallTile, WallTile, WallTile,WallTile, WallTile, WallTile, DiamondTile, DiamondTile, PipeTile+3, PipeTile+5,
 														BrickTile, KeyTile, BlankTile, BlankTile, BlankTile, BlankTile, DiamondTile, DiamondTile, DiamondTile, BrickTile, BrickTile, BrickTile, PipeTile+1,
 														BrickTile, BrickTile, BrickTile, BrickTile, KeyholeTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, PipeTile+1 );

@@ -27,13 +27,23 @@ begin
 	ResetGameStats();
 	CopyRoomToGameGrid(0);
 	DrawRoomTiles();
-
-	while (gameStats.bonus > 0) then
-	begin
-		UpdateHUDNumbers();
-		gameStats.bonus := gameStats.bonus - 1;
-		for u := 0 to 20 do wait(50);
-	end;
 	
+	while (1) do
+	begin
+		// TESTING!!!
+		//UpdateHUDNumbers();
+		if (gameStats.bonus > 0) then
+		begin
+			gameStats.bonus := gameStats.bonus -1;
+		end
+		else
+		begin
+			gameStats.bonus := 400;
+		end;
+		
+	
+		UpdateTilesData();
+		DrawRoomTiles();
+	end;
 	Loop();
 end.

@@ -133,7 +133,7 @@ begin
 	// Add player to grid
 	x := playerRoomX[r];
 	y := playerRoomY[r];
-	gameGrid[x+lookupGridY[y]] := PlayerRightTile;
+	gameGrid[x+lookupGridY[y]] := PlayerTile;
 end;
 
 // Room Tiles Sprite draw common routine
@@ -145,9 +145,9 @@ end;
 // Draw room tiles to screen
 procedure DrawRoomTiles();
 begin
-	for y := 0 to 8 do
+	for y := 0 to gridHeight do
 	begin
-		for x := 0 to 13 do
+		for x := 0 to gridWidth do
 		begin
 			u := gameGrid[x+lookupGridY[y]];
 			case u of
@@ -161,7 +161,7 @@ begin
 					v := spiderRecord.animationFrame;
 					DrawSprite(x, y, u+v);					
 				end;
-				SnakeRightTile:
+				SnakeTile:
 				begin
 					v := snakeRecord.animationFrame;
 					if (snakeRecord.facingDirection = true) then
@@ -173,7 +173,7 @@ begin
 						DrawSprite(x, y, u+v+4);
 					end;					
 				end;
-				PlayerRightTile:
+				PlayerTile:
 					begin
 					v := playerRecord.animationFrame;
 					if (playerRecord.facingDirection = true) then
@@ -193,3 +193,53 @@ begin
 	end;	
 end;
 
+// Update diamond tile state
+procedure UpdateDiamondTile();
+begin
+	// Update animation
+	if (diamondRecord.interFrameDelay > 0) then
+	begin
+		diamondRecord.interFrameDelay := diamondRecord.interFrameDelay -1;
+		return;
+	end
+	else
+	begin
+		if (diamondRecord.frameDelay > 0) then
+		begin
+			diamondRecord.frameDelay := diamondRecord.frameDelay -1;
+			return;
+		end
+		else
+		begin
+			diamondRecord.frameDelay := diamondRecord.frameDelayMax;
+			if (diamondRecord.animationFrame = diamondRecord.frameCount) then
+			begin
+				diamondRecord.interFrameDelay := diamondRecord.interFrameDelayMax;
+			end;
+			if (diamondRecord.animationFrame < diamondRecord.frameCount) then
+			begin
+				diamondRecord.animationFrame := diamondRecord.animationFrame +1;
+			end
+			else
+			begin
+				diamondRecord.animationFrame := 0;
+			end;
+		end;
+	end;	
+end;
+
+// Update animation values, tile movement and player collision stuff
+procedure UpdateTilesData();
+begin
+	for y := 0 to gridHeight do
+	begin
+		for x := 0 to gridWidth do
+		begin
+			u := gameGrid[x+lookupGridY[y]];
+			case u of
+				DiamondTile:
+					UpdateDiamondTile();
+				end;
+			end;
+		end;
+end;

@@ -7,20 +7,30 @@ begin
 	gameStats.keys := 3;
 	gameStats.hiScore := 0;
 	gameStats.lives := 3;
+	gameStats.frameDelayMax := 10;
 	
 	diamondRecord.animationFrame := 0;
-	diamondRecord.interFrameDelay := diamondRecord.interFrameMax;
-	diamondRecord.frameDelay := diamondRecord.frameDelayMax;
+	diamondRecord.frameCount := 3;
+	diamondRecord.interFrameDelayMax := 100;
+	diamondRecord.interFrameDelay := diamondRecord.interFrameDelayMax;
+	diamondRecord.frameDelayMax := 3;
+	diamondRecord.points := 1;
 	
 	spiderRecord.animationFrame := 0;
-	spiderRecord.frameDelay := spiderRecord.frameDelayMax;
+	spiderRecord.frameCount := 2;
+	spiderRecord.frameDelay := gameStats.frameDelayMax;
 	
 	snakeRecord.animationFrame := 0;
-	snakeRecord.frameDelay := snakeRecord.frameDelayMax;
+	snakeRecord.frameCount := 4;
+	snakeRecord.frameDelay := gameStats.frameDelayMax;
 	snakeRecord.facingDirection := true;
 	
 	playerRecord.animationFrame := 0;
-	playerRecord.frameDelay := playerRecord.frameDelayMax;
+	playerRecord.frameCount := 2;
+	playerRecord.frameDelay := gameStats.frameDelayMax;
 	playerRecord.lastDirection := 1;
 	playerRecord.facingDirection := true;
+	
+	
+	//Loop();
 end;
