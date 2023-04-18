@@ -24,8 +24,9 @@ begin
 	DrawHUD();
 	
 	// Test
-	ResetPlayerGameStats();
-	InitRoomDraw(0);
+	ResetGameStats();
+	CopyRoomToGameGrid(0);
+	DrawRoomTiles();
 
 	while (gameStats.bonus > 0) then
 	begin

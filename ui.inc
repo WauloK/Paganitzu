@@ -47,7 +47,7 @@ begin
 	Sprite::DrawAt(26,0,0,false);
 	// Set Sprite data to main game data
 	Sprite::SetSize(2,8);
-	Sprite::SetData(#spriteData);
+	Sprite::SetData(#TileData);
 end;
 
 // Draw numbers on the screen padded and with trailing zeroes
@@ -120,18 +120,76 @@ begin
 	DrawBonusPadded(gameStats.bonus,27,59);
 end;
 
-// Initial room draw
-procedure InitRoomDraw(r : global byte);
+// Copy RoomX to gameGrid
+procedure CopyRoomToGameGrid(r : global byte);
+begin
+	for u := 0 to gridWidth*gridHeight do
+	begin
+		case r of
+			0:
+				gameGrid[u] := Room0[u];
+		end;
+	end;
+	// Add player to grid
+	x := playerRoomX[r];
+	y := playerRoomY[r];
+	gameGrid[x+lookupGridY[y]] := PlayerRightTile;
+end;
+
+// Room Tiles Sprite draw common routine
+procedure DrawSprite(x, y, q: global byte);
+begin
+	Sprite::DrawAt(lookupScreenX[x],lookupScreenY[y],q,false);
+end;
+
+// Draw room tiles to screen
+procedure DrawRoomTiles();
 begin
 	for y := 0 to 8 do
 	begin
 		for x := 0 to 13 do
 		begin
-			case r of
-				0:
-						u := Room0[x+13*y];
+			u := gameGrid[x+lookupGridY[y]];
+			case u of
+				DiamondTile:
+				begin
+					v := diamondRecord.animationFrame;
+					DrawSprite(x, y, u+v);
+				end;
+				SpiderTile:
+				begin
+					v := spiderRecord.animationFrame;
+					DrawSprite(x, y, u+v);					
+				end;
+				SnakeRightTile:
+				begin
+					v := snakeRecord.animationFrame;
+					if (snakeRecord.facingDirection = true) then
+					begin
+						DrawSprite(x, y, u+v);
+					end
+					else
+					begin
+						DrawSprite(x, y, u+v+4);
+					end;					
+				end;
+				PlayerRightTile:
+					begin
+					v := playerRecord.animationFrame;
+					if (playerRecord.facingDirection = true) then
+					begin
+						DrawSprite(x, y, u+v);
+					end
+					else
+					begin
+						DrawSprite(x, y, u+v+2);
+					end;											
 			end;
-			Sprite::DrawAt(x*2,y*8,u,false);
+			else
+			begin
+				DrawSprite(x, y, u);
+			end;
 		end;
 	end;	
 end;
+
