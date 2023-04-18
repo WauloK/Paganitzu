@@ -142,57 +142,6 @@ begin
 	Sprite::DrawAt(lookupScreenX[x],lookupScreenY[y],q,false);
 end;
 
-// Draw room tiles to screen
-procedure DrawRoomTiles();
-begin
-	for y := 0 to gridHeight do
-	begin
-		for x := 0 to gridWidth do
-		begin
-			u := gameGrid[x+lookupGridY[y]];
-			case u of
-				DiamondTile:
-				begin
-					v := diamondRecord.animationFrame;
-					DrawSprite(x, y, u+v);
-				end;
-				SpiderTile:
-				begin
-					v := spiderRecord.animationFrame;
-					DrawSprite(x, y, u+v);					
-				end;
-				SnakeTile:
-				begin
-					v := snakeRecord.animationFrame;
-					if (snakeRecord.facingDirection = true) then
-					begin
-						DrawSprite(x, y, u+v);
-					end
-					else
-					begin
-						DrawSprite(x, y, u+v+4);
-					end;					
-				end;
-				PlayerTile:
-					begin
-					v := playerRecord.animationFrame;
-					if (playerRecord.facingDirection = true) then
-					begin
-						DrawSprite(x, y, u+v);
-					end
-					else
-					begin
-						DrawSprite(x, y, u+v+2);
-					end;											
-			end;
-			else
-			begin
-				DrawSprite(x, y, u);
-			end;
-		end;
-	end;	
-end;
-
 // Update diamond tile state
 procedure UpdateDiamondTile();
 begin
@@ -228,8 +177,38 @@ begin
 	end;	
 end;
 
-// Update animation values, tile movement and player collision stuff
-procedure UpdateTilesData();
+// Update snake tile state - TODO: Shoot player.
+procedure UpdateSnakeTile();
+begin
+	begin
+		if (snakeRecord.animationFrame < snakeRecord.frameCount) then
+		begin
+			snakeRecord.animationFrame := snakeRecord.animationFrame +1;
+		end
+		else
+		begin
+			snakeRecord.animationFrame := 0;
+		end;
+	end;
+end;
+
+// Update snake tile state - TODO: Move spider.
+procedure UpdateSpiderTile();
+begin
+	begin
+		if (spiderRecord.animationFrame < spiderRecord.frameCount) then
+		begin
+			spiderRecord.animationFrame := spiderRecord.animationFrame +1;
+		end
+		else
+		begin
+			spiderRecord.animationFrame := 0;
+		end;
+	end;
+end;
+
+// Draw room tiles to screen
+procedure DrawRoomTiles();
 begin
 	for y := 0 to gridHeight do
 	begin
@@ -238,8 +217,47 @@ begin
 			u := gameGrid[x+lookupGridY[y]];
 			case u of
 				DiamondTile:
-					UpdateDiamondTile();
+					begin
+						UpdateDiamondTile();
+						v := diamondRecord.animationFrame;
+						DrawSprite(x, y, u+v);
+					end;
+				SpiderTile:
+					begin
+						UpdateSpiderTile();
+						v := spiderRecord.animationFrame;
+						DrawSprite(x, y, u+v);					
+					end;
+				SnakeTile:
+					begin
+						UpdateSnakeTile();
+						v := snakeRecord.animationFrame;
+						if (snakeRecord.facingDirection = true) then
+						begin
+							DrawSprite(x, y, u+v);
+						end
+						else
+						begin
+							DrawSprite(x, y, u+v+4);
+						end;					
+					end;
+				PlayerTile:
+					begin
+						//UpdatePlayerTile();
+						v := playerRecord.animationFrame;
+						if (playerRecord.facingDirection = true) then
+						begin
+							DrawSprite(x, y, u+v);
+						end
+						else
+						begin
+							DrawSprite(x, y, u+v+2);
+						end;											
 				end;
+			else
+			begin
+				DrawSprite(x, y, u);
 			end;
 		end;
+	end;	
 end;

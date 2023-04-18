@@ -7,7 +7,7 @@ begin
 	gameStats.keys := 3;
 	gameStats.hiScore := 0;
 	gameStats.lives := 3;
-	gameStats.frameDelayMax := 10;
+	gameStats.frameDelayMax := 2;
 	
 	diamondRecord.animationFrame := 0;
 	diamondRecord.frameCount := 3;
@@ -17,12 +17,10 @@ begin
 	diamondRecord.points := 1;
 	
 	spiderRecord.animationFrame := 0;
-	spiderRecord.frameCount := 2;
-	spiderRecord.frameDelay := gameStats.frameDelayMax;
+	spiderRecord.frameCount := 1;
 	
 	snakeRecord.animationFrame := 0;
-	snakeRecord.frameCount := 4;
-	snakeRecord.frameDelay := gameStats.frameDelayMax;
+	snakeRecord.frameCount := 3;
 	snakeRecord.facingDirection := true;
 	
 	playerRecord.animationFrame := 0;

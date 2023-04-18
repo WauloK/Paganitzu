@@ -41,8 +41,6 @@ begin
 			gameStats.bonus := 400;
 		end;
 		
-	
-		UpdateTilesData();
 		DrawRoomTiles();
 	end;
 	Loop();
