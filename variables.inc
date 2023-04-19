@@ -62,6 +62,7 @@ var
 			frameDelayMax : byte;
 			interFrameDelay : byte; // Delay before animation starts.
 			interFrameDelayMax : byte;
+			animatedThisFrame : boolean;
 			points : byte;
 	end;
 	diamondRecord : diamondTile_record;
@@ -70,6 +71,7 @@ var
 			animationFrame : byte;
 			frameCount : byte;
 			frameDelay : byte;
+			animatedThisFrame : boolean;
 	end;
 	spiderRecord : spiderTile_record;
 	
@@ -77,6 +79,7 @@ var
 			animationFrame : byte;
 			frameCount : byte;
 			facingDirection : boolean; // ( false = left, true = right )
+			animatedThisFrame : boolean;
 	end;
 	snakeRecord : snakeTile_record;
 	

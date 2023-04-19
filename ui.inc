@@ -142,74 +142,13 @@ begin
 	Sprite::DrawAt(lookupScreenX[x],lookupScreenY[y],q,false);
 end;
 
-// Update diamond tile state
-procedure UpdateDiamondTile();
-begin
-	// Update animation
-	if (diamondRecord.interFrameDelay > 0) then
-	begin
-		diamondRecord.interFrameDelay := diamondRecord.interFrameDelay -1;
-		return;
-	end
-	else
-	begin
-		if (diamondRecord.frameDelay > 0) then
-		begin
-			diamondRecord.frameDelay := diamondRecord.frameDelay -1;
-			return;
-		end
-		else
-		begin
-			diamondRecord.frameDelay := diamondRecord.frameDelayMax;
-			if (diamondRecord.animationFrame = diamondRecord.frameCount) then
-			begin
-				diamondRecord.interFrameDelay := diamondRecord.interFrameDelayMax;
-			end;
-			if (diamondRecord.animationFrame < diamondRecord.frameCount) then
-			begin
-				diamondRecord.animationFrame := diamondRecord.animationFrame +1;
-			end
-			else
-			begin
-				diamondRecord.animationFrame := 0;
-			end;
-		end;
-	end;	
-end;
-
-// Update snake tile state - TODO: Shoot player.
-procedure UpdateSnakeTile();
-begin
-	begin
-		if (snakeRecord.animationFrame < snakeRecord.frameCount) then
-		begin
-			snakeRecord.animationFrame := snakeRecord.animationFrame +1;
-		end
-		else
-		begin
-			snakeRecord.animationFrame := 0;
-		end;
-	end;
-end;
-
-// Update snake tile state - TODO: Move spider.
-procedure UpdateSpiderTile();
-begin
-	begin
-		if (spiderRecord.animationFrame < spiderRecord.frameCount) then
-		begin
-			spiderRecord.animationFrame := spiderRecord.animationFrame +1;
-		end
-		else
-		begin
-			spiderRecord.animationFrame := 0;
-		end;
-	end;
-end;
-
 // Draw room tiles to screen
 procedure DrawRoomTiles();
 begin
+	// Reset animatedThisFrame for all tiles
+	diamondRecord.animatedThisFrame := false;
+	snakeRecord.animatedThisFrame := false;
+	spiderRecord.animatedThisFrame := false;
 	for y := 0 to gridHeight do
 	begin
 		for x := 0 to gridWidth do

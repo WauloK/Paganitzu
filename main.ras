@@ -11,6 +11,7 @@ program Paganitzu;
 @export "resources/titlescreen.flf" "trse.bin" 256
 
 @include "variables.inc"
+@include "gamemanager.inc"
 @include "ui.inc"
 @include "player.inc"
 	
@@ -31,7 +32,8 @@ begin
 	while (1) do
 	begin
 		// TESTING!!!
-		//UpdateHUDNumbers();
+		Screen::WaitForVerticalBlank();
+		UpdateHUDNumbers();
 		if (gameStats.bonus > 0) then
 		begin
 			gameStats.bonus := gameStats.bonus -1;
