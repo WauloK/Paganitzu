@@ -130,10 +130,6 @@ begin
 				gameGrid[u] := Room0[u];
 		end;
 	end;
-	// Add player to grid
-	x := playerRoomX[r];
-	y := playerRoomY[r];
-	gameGrid[x+lookupGridY[y]] := PlayerTile;
 end;
 
 // Room Tiles Sprite draw common routine
@@ -149,12 +145,19 @@ begin
 	diamondRecord.animatedThisFrame := false;
 	snakeRecord.animatedThisFrame := false;
 	spiderRecord.animatedThisFrame := false;
+	// Scan through grid to update states and change sprites
 	for y := 0 to gridHeight do
 	begin
 		for x := 0 to gridWidth do
 		begin
 			u := gameGrid[x+lookupGridY[y]];
 			case u of
+				PlayerTile:
+					begin
+						playerRecord.x := x;
+						playerRecord.y := y;
+						DrawSprite(x, y, u);
+					end;
 				DiamondTile:
 					begin
 						UpdateDiamondTile();

@@ -45,9 +45,6 @@ var
 	
 	const NumberOfRooms : byte = 1;
 	
-	playerRoomX: array[] of byte = ( 1);
-	playerRoomY: array[] of byte = ( 1);
-	
 	// Store current level live data
 	gameGrid : array[gridWidth*gridHeight] of byte;
 	lookupGridY : array[gridHeight] of Integer = BuildTable("i*GRIDWIDTH");
@@ -99,7 +96,7 @@ var
 	
 	// Levels data
 	Room0: array[] of byte = (WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, BrickTile, BrickTile, BrickTile, PipeTile+1, BrickTile,
-														WallTile, BlankTile, WallTile, WallTile, WallTile, WallTile, WaterTile, WaterTile, PipeTile, PipeTile+5, BrickTile, PipeTile+1, BrickTile,
+														WallTile, PlayerTile, WallTile, WallTile, WallTile, WallTile, WaterTile, WaterTile, PipeTile, PipeTile+5, BrickTile, PipeTile+1, BrickTile,
 														WallTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WaterTile, WaterTile, BrickTile, PipeTile+3, PipeTile, PipeTile+2, BrickTile,
 														WallTile, BlankTile, RockTile, WallTile, WallTile, BlankTile, DirtTile, DirtTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
 														WallTile, BlankTile, SpiderTile, BlankTile, SnakeTile, WallTile, DirtTile, DirtTile, KeyTile, BlankTile, BlankTile, PipeTile+4, PipeTile,
