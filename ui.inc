@@ -141,10 +141,10 @@ end;
 // Draw room tiles to screen
 procedure DrawRoomTiles();
 begin
-	// Reset animatedThisFrame for all tiles
-	diamondRecord.animatedThisFrame := false;
-	snakeRecord.animatedThisFrame := false;
-	spiderRecord.animatedThisFrame := false;
+	// Update animation frame for all tiles
+	UpdateDiamondTile();
+	UpdateSnakeTile();
+	UpdateSpiderTile();
 	// Scan through grid to update states and change sprites
 	for y := 0 to gridHeight do
 	begin
@@ -160,19 +160,19 @@ begin
 					end;
 				DiamondTile:
 					begin
-						UpdateDiamondTile();
+						//UpdateDiamondTile();
 						v := diamondRecord.animationFrame;
 						DrawSprite(x, y, u+v);
 					end;
 				SpiderTile:
 					begin
-						UpdateSpiderTile();
+						//UpdateSpiderTile();
 						v := spiderRecord.animationFrame;
 						DrawSprite(x, y, u+v);					
 					end;
 				SnakeTile:
 					begin
-						UpdateSnakeTile();
+						//UpdateSnakeTile();
 						v := snakeRecord.animationFrame;
 						if (snakeRecord.facingDirection = true) then
 						begin

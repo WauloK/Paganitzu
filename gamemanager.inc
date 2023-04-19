@@ -11,20 +11,16 @@ begin
 	
 	diamondRecord.animationFrame := 0;
 	diamondRecord.frameCount := 3;
-	diamondRecord.interFrameDelayMax := 100;
-	diamondRecord.interFrameDelay := diamondRecord.interFrameDelayMax;
-	diamondRecord.frameDelayMax := 3;
+	diamondRecord.frameDelayMax := 30;
+	diamondRecord.frameDelay := diamondRecord.frameDelayMax;
 	diamondRecord.points := 1;
-	diamondRecord.animatedThisFrame := false;
 	
 	spiderRecord.animationFrame := 0;
 	spiderRecord.frameCount := 1;
-	spiderRecord.animatedThisFrame := false;
 	
 	snakeRecord.animationFrame := 0;
 	snakeRecord.frameCount := 3;
 	snakeRecord.facingDirection := true;
-	snakeRecord.animatedThisFrame := false;
 	
 	playerRecord.animationFrame := 0;
 	playerRecord.frameCount := 2;
@@ -39,39 +35,23 @@ end;
 // Update diamond tile state
 procedure UpdateDiamondTile();
 begin
-		// Update animation
-		if (diamondRecord.interFrameDelay > 0) then
+	// Update animation
+	if (diamondRecord.frameDelay > 1) then
+	begin
+		diamondRecord.frameDelay := diamondRecord.frameDelay -1;
+		return;
+	end
+	else
+	begin
+		if (diamondRecord.animationFrame < diamondRecord.frameCount) then
 		begin
-			diamondRecord.interFrameDelay := diamondRecord.interFrameDelay -1;
-			return;
+			diamondRecord.animationFrame := diamondRecord.animationFrame +1;
 		end
 		else
 		begin
-			if (diamondRecord.frameDelay > 0) then
-			begin
-				diamondRecord.frameDelay := diamondRecord.frameDelay -1;
-				return;
-			end
-			else
-			begin
-			if (diamondRecord.animatedThisFrame = false) then
-				begin
-				diamondRecord.animatedThisFrame := true;
-				diamondRecord.frameDelay := diamondRecord.frameDelayMax;
-				if (diamondRecord.animationFrame = diamondRecord.frameCount) then
-				begin
-					diamondRecord.interFrameDelay := diamondRecord.interFrameDelayMax;
-				end;
-				if (diamondRecord.animationFrame < diamondRecord.frameCount) then
-				begin
-					diamondRecord.animationFrame := diamondRecord.animationFrame +1;
-				end
-				else
-				begin
-					diamondRecord.animationFrame := 0;
-				end;
-			end;
-		end;	
+			diamondRecord.animationFrame := 0;
+			diamondRecord.frameDelay := diamondRecord.frameDelayMax;
+		end;
 	end;
 end;
 
@@ -79,17 +59,13 @@ end;
 procedure UpdateSnakeTile();
 begin
 	begin
-		if (snakeRecord.animatedThisFrame = false) then
+		if (snakeRecord.animationFrame < snakeRecord.frameCount) then
 		begin
-			snakeRecord.animatedThisFrame := true;
-			if (snakeRecord.animationFrame < snakeRecord.frameCount) then
-			begin
-				snakeRecord.animationFrame := snakeRecord.animationFrame +1;
-			end
-			else
-			begin
-				snakeRecord.animationFrame := 0;
-			end;
+			snakeRecord.animationFrame := snakeRecord.animationFrame +1;
+		end
+		else
+		begin
+			snakeRecord.animationFrame := 0;
 		end;
 	end;
 end;
@@ -98,17 +74,13 @@ end;
 procedure UpdateSpiderTile();
 begin
 	begin
-		if (spiderRecord.animatedThisFrame = false) then
+		if (spiderRecord.animationFrame < spiderRecord.frameCount) then
 		begin
-			spiderRecord.animatedThisFrame := true;
-			if (spiderRecord.animationFrame < spiderRecord.frameCount) then
-			begin
-				spiderRecord.animationFrame := spiderRecord.animationFrame +1;
-			end
-			else
-			begin
-				spiderRecord.animationFrame := 0;
-			end;
+			spiderRecord.animationFrame := spiderRecord.animationFrame +1;
+		end
+		else
+		begin
+			spiderRecord.animationFrame := 0;
 		end;
 	end;
 end;
