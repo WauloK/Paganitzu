@@ -2,7 +2,7 @@ var
 	// Other variables	
 	mychar : string = "A";
 	myp, mym : pointer;
-	strpos, p, q, r, u, v, x, y : byte;
+	strpos, p, q, r, s, u, v, x, y : byte;
 	tempInt : Integer;
 	message : string = "Press 'S' or Fire to start! Welcome to Paganitzu! Use Joysticks or Keys: QA = Up/Down M, = Left/Right. Check out BlueBilby.com ... ";
 	strlen : byte;

@@ -11,9 +11,9 @@ program Paganitzu;
 @export "resources/titlescreen.flf" "trse.bin" 256
 
 @include "variables.inc"
+@include "player.inc"
 @include "gamemanager.inc"
 @include "ui.inc"
-@include "player.inc"
 	
 begin
 	Memory::DisableInterrupts();
@@ -42,7 +42,7 @@ begin
 		begin
 			gameStats.bonus := 400;
 		end;
-		
+		UpdateTileStates();
 		DrawRoomTiles();
 	end;
 	Loop();

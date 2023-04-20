@@ -84,3 +84,11 @@ begin
 		end;
 	end;
 end;
+
+procedure UpdateTileStates();
+begin
+	UpdateDiamondTile();
+	UpdateSnakeTile();
+	UpdateSpiderTile();
+	UpdatePlayerTile();
+end;

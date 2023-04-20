@@ -142,9 +142,6 @@ end;
 procedure DrawRoomTiles();
 begin
 	// Update animation frame for all tiles
-	UpdateDiamondTile();
-	UpdateSnakeTile();
-	UpdateSpiderTile();
 	// Scan through grid to update states and change sprites
 	for y := 0 to gridHeight do
 	begin
@@ -160,19 +157,16 @@ begin
 					end;
 				DiamondTile:
 					begin
-						//UpdateDiamondTile();
 						v := diamondRecord.animationFrame;
 						DrawSprite(x, y, u+v);
 					end;
 				SpiderTile:
 					begin
-						//UpdateSpiderTile();
 						v := spiderRecord.animationFrame;
 						DrawSprite(x, y, u+v);					
 					end;
 				SnakeTile:
 					begin
-						//UpdateSnakeTile();
 						v := snakeRecord.animationFrame;
 						if (snakeRecord.facingDirection = true) then
 						begin
@@ -185,7 +179,6 @@ begin
 					end;
 				PlayerTile:
 					begin
-						//UpdatePlayerTile();
 						v := playerRecord.animationFrame;
 						if (playerRecord.facingDirection = true) then
 						begin
