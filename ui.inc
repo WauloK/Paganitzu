@@ -113,7 +113,7 @@ begin
 	Font::DrawTextAt(#Functions_s,29,33,false);
 	Font::DrawTextAt("0",28,33,false);
 	// Draw keys left zero-padded
-	Functions::ByteToString(gameStats.keys);
+	Functions::ByteToString(gameStats.keysLeft);
 	Font::DrawTextAt(#Functions_s,29,46,false);
 	Font::DrawTextAt("0",28,46,false);
 	// Draw bonus points aka timer

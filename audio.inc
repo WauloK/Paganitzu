@@ -1,0 +1,61 @@
+procedure DeathMarch();
+begin
+	Sound::Play(300,120);
+	wait(100);
+	Sound::Play(300,120);
+	wait(100);
+	Sound::Play(300,40);
+	wait(100);
+	Sound::Play(300,200);
+	Sound::Play(250,120);
+	wait(100);
+	Sound::Play(250,40);
+	wait(100);
+	Sound::Play(250,120);
+	Sound::Play(300,40);
+	wait(100);
+	Sound::Play(300,150);
+	wait(100);
+	Sound::Play(330,40);
+	Sound::Play(300,255);
+end;
+
+// Play sound fx
+procedure FxPlay(r: global byte);
+begin
+	case r of
+		sfxMove:
+			begin
+				Sound::Shoot(100,100);
+			end;
+		sfxDiamond:
+			begin
+				Sound::Play(30,60);
+				Sound::Play(20,60);
+				Sound::Play(10,60);
+			end;
+		sfxRock:
+			begin
+				Sound::Shoot(1500,3500);
+			end;
+		sfxKeyhole:
+			begin
+				Sound::Play(130,120);
+				Sound::Play(120,120);
+				Sound::Play(110,320);
+				Sound::Play(120,200);
+				Sound::Play(130,350);
+			end;	
+		sfxKey:
+			begin
+				Sound::Play(50,60);
+				Sound::Play(60,60);
+				Sound::Play(70,60);
+				Sound::Play(30,60);
+			end;
+		sfxDied:
+		begin
+				DeathMarch();
+		end;
+	end;
+end;

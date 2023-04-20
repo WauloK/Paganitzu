@@ -11,6 +11,7 @@ program Paganitzu;
 @export "resources/titlescreen.flf" "trse.bin" 256
 
 @include "variables.inc"
+@include "audio.inc"
 @include "player.inc"
 @include "gamemanager.inc"
 @include "ui.inc"
@@ -25,6 +26,8 @@ begin
 	DrawHUD();
 	
 	// Test
+	FxPlay(sfxDied);
+	
 	ResetGameStats();
 	CopyRoomToGameGrid(0);
 	DrawRoomTiles();
