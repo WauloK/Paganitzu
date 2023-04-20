@@ -2,12 +2,11 @@
 procedure ResetGameStats();
 begin
 	gameStats.room := 0;
-	gameStats.score := 32123;
+	gameStats.score := 0;
 	gameStats.bonus := 400;
 	gameStats.keysLeft := levelKeys[gameStats.room];
 	gameStats.hiScore := 0;
 	gameStats.lives := 3;
-	gameStats.frameDelayMax := 2;
 	
 	diamondRecord.animationFrame := 0;
 	diamondRecord.frameCount := 3;
@@ -24,7 +23,6 @@ begin
 	
 	playerRecord.animationFrame := 0;
 	playerRecord.frameCount := 2;
-	playerRecord.frameDelay := gameStats.frameDelayMax;
 	playerRecord.lastDirection := 1;
 	playerRecord.facingDirection := true;
 	

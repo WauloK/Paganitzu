@@ -47,6 +47,7 @@ var
 	const sfxKeyhole : byte = 3;
 	const sfxKey : byte = 4;
 	const sfxDied : byte = 5;
+	const sfxStart : byte = 6;
 	
 	const gridWidth : byte = 13;
 	const gridHeight : byte = 8;
@@ -64,7 +65,6 @@ var
 			animationFrame : byte;
 			frameCount : byte;
 			frameDelay : byte;
-			frameDelayMax : byte;
 			interFrameDelay : byte; // Delay before animation starts.
 			interFrameDelayMax : byte;
 			points : byte;
@@ -88,7 +88,6 @@ var
 	playerTile_record = record
 			animationFrame : byte;
 			frameCount : byte;
-			frameDelay : byte;
 			x, y : byte;
 			lastDirection : byte; // ( 0 = left, 1 = right, 2 = up, 3 = down )
 			facingDirection : boolean; // ( false = left, true = right )

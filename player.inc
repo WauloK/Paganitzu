@@ -60,11 +60,13 @@ begin
 				if (gameStats.keysLeft > 0) then b := false;
 			end;
 	end;
+	// Player movement sound effect
+	if (b = true) then FxPlay(sfxMove);
 	CheckTileAt := b;
 end;
 
 // Set tile where player used to be, to blankTile
-procedure SetTileToBlank();
+procedure SetTileToBlank(u,v : global byte);
 begin
 	gameGrid[u+lookupGridY[v]] := blankTile;
 end;
@@ -88,7 +90,7 @@ begin
 		begin
 			if (CheckTileAt(playerRecord.x, playerRecord.y-1) = true) then
 			begin
-				SetTileToBlank();
+				SetTileToBlank(playerRecord.x, playerRecord.y);
 				playerRecord.y := playerRecord.y -1;
 				playerRecord.lastDirection := 2;
 				PlayerActionTile();
@@ -103,7 +105,7 @@ begin
 		begin
 			if (CheckTileAt(playerRecord.x, playerRecord.y+1) = true) then
 			begin
-				SetTileToBlank();
+				SetTileToBlank(playerRecord.x, playerRecord.y);
 				playerRecord.y := playerRecord.y +1;
 				playerRecord.lastDirection := 3;
 				PlayerActionTile();
@@ -118,7 +120,7 @@ begin
 		begin
 			if (CheckTileAt(playerRecord.x-1, playerRecord.y) = true) then
 			begin
-				SetTileToBlank();
+				SetTileToBlank(playerRecord.x, playerRecord.y);
 				playerRecord.x := playerRecord.x -1;
 				playerRecord.lastDirection := 0;
 				PlayerActionTile();
@@ -133,7 +135,7 @@ begin
 		begin
 			if (CheckTileAt(playerRecord.x+1, playerRecord.y) = true) then
 			begin
-				SetTileToBlank();
+				SetTileToBlank(playerRecord.x, playerRecord.y);
 				playerRecord.x := playerRecord.x +1;
 				playerRecord.lastDirection := 1;
 				PlayerActionTile();

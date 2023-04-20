@@ -54,8 +54,16 @@ begin
 				Sound::Play(30,60);
 			end;
 		sfxDied:
-		begin
-				DeathMarch();
-		end;
+			begin
+					DeathMarch();
+			end;
+		sfxStart:
+			begin
+				Sound::Play(130,50);
+				Sound::Play(120,50);
+				Sound::Play(110,50);
+				Sound::Play(120,50);
+				Sound::Play(100,50);
+			end;
 	end;
 end;

@@ -24,14 +24,18 @@ begin
 	TitleScreen();
 	// Draw Game HUD
 	DrawHUD();
+	// Play game start sound
+	FxPlay(sfxStart);
+	// Reset Game stats variables
+	ResetGameStats();
+	// Copy current room data to grid array
+	CopyRoomToGameGrid(0);
+	// Draw tiles in the room.
+	DrawRoomTiles();
+
 	
 	// Test
-	FxPlay(sfxDied);
-	
-	ResetGameStats();
-	CopyRoomToGameGrid(0);
-	DrawRoomTiles();
-	
+
 	while (1) do
 	begin
 		// TESTING!!!
