@@ -24,6 +24,7 @@ begin
 		KeyTile:
 			begin
 				gameStats.keysLeft := gameStats.keysLeft -1;
+				gameStats.score := gameStats.score + 1;
 				UpdateHUDNumbers();
 				if (gameStats.keysLeft = 0) then
 				begin
@@ -36,7 +37,7 @@ begin
 			end;
 		DiamondTile:
 			begin
-				gameStats.score := gameStats.score + 1;
+				gameStats.score := gameStats.score + 5;
 				UpdateHUDNumbers();
 				FxPlay(sfxDiamond);
 			end;
@@ -80,7 +81,18 @@ begin
 		b := false;
 	end;
 	// Player movement sound effect
-	if (b = true) then FxPlay(sfxMove);
+	if (b = true) then
+	begin
+		FxPlay(sfxMove);
+		if (playerRecord.animationFrame = 0) then
+		begin
+			playerRecord.animationFrame := 1;
+		end
+		else
+		begin
+			playerRecord.animationFrame := 0;
+		end;
+	end;
 	CheckTileAt := b;
 end;
 
@@ -140,8 +152,10 @@ begin
 			if (CheckTileAt(playerRecord.x-1, playerRecord.y) = true) then
 			begin
 				SetTileToBlank(playerRecord.x, playerRecord.y);
+				DrawSprite(playerRecord.x, playerRecord.y, BlankTile);
 				playerRecord.x := playerRecord.x -1;
 				playerRecord.lastDirection := 0;
+				playerRecord.facingDirection := false;
 				PlayerActionTile();
 			end;
 		end;
@@ -155,10 +169,13 @@ begin
 			if (CheckTileAt(playerRecord.x+1, playerRecord.y) = true) then
 			begin
 				SetTileToBlank(playerRecord.x, playerRecord.y);
+				DrawSprite(playerRecord.x, playerRecord.y, BlankTile);
 				playerRecord.x := playerRecord.x +1;
 				playerRecord.lastDirection := 1;
+				playerRecord.facingDirection := true;
 				PlayerActionTile();
 			end;
 		end;
 	end;
+	DrawPlayerTile();
 end;

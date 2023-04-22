@@ -11,8 +11,8 @@ program Paganitzu;
 @export "resources/titlescreen.flf" "trse.bin" 256
 
 @include "variables.inc"
-@include "ui.inc"
 @include "audio.inc"
+@include "ui.inc"
 @include "player.inc"
 @include "gamemanager.inc"
 	
@@ -50,7 +50,6 @@ begin
 			gameStats.bonus := 400;
 		end;
 		UpdateTileStates();
-		DrawRoomTiles();
 	end;
 	Loop();
 end.

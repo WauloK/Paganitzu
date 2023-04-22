@@ -54,17 +54,20 @@ end;
 procedure DrawPadded(zscore : Integer; x, y: global byte);
 begin
 	u := x;
-	if (zscore < 1) then 
-	begin
-		Font::DrawTextAt("0",u+6,y,false);
-		return;
-	end;
+//	if (zscore < 1) then 
+//	begin
+//		Font::DrawTextAt("0",u+6,y,false);
+//		return;
+//	end;
 	if (zscore < 10000) then x := x + 1;
 	if (zscore < 1000) then x := x + 1;
 	if (zscore < 100) then x := x + 1;
 	if (zscore < 10) then x := x + 1;
 	Functions::IntegerToString(zscore);
-	Font::DrawTextAt(#Functions_s,x,y,false);	
+	if (zscore > 0) then
+	begin
+		Font::DrawTextAt(#Functions_s,x,y,false);	
+	end;
 	Font::DrawTextAt("0",u+5,y,false);
 end;
 
@@ -139,6 +142,90 @@ begin
 	Sprite::DrawAt(lookupScreenX[x],lookupScreenY[y],q,false);
 end;
 
+// Player died
+procedure KillPlayer();
+begin
+	FxPlay(sfxDied);
+	Loop();
+end;
+
+// Check if snake spits poison at player
+procedure SnakeAttackPlayer(x, y: global byte);
+begin
+	if (y <> playerRecord.y) then return;
+	p := 0; // Non-zero if non-blank tile found between snake and player
+	if (x > playerRecord.x) then
+	begin
+		for q := playerRecord.x to x do
+		begin
+			if (gameGrid[q+lookupGridY[y]] > BlankTile) then
+			begin
+				p := 1;
+			end;
+			if (gameGrid[q+lookupGridY[y]] = SnakeTile or (gameGrid[q+lookupGridY[y]] = PlayerTile)) then
+			begin
+				p := 0;
+			end;
+		end;
+	end
+	else
+	begin
+		for q := x to playerRecord.x do
+		begin
+			if (gameGrid[q+lookupGridY[y]] > BlankTile) then
+			begin
+				p := 1;
+			end;
+			if (gameGrid[q+lookupGridY[y]] = SnakeTile or (gameGrid[q+lookupGridY[y]] = PlayerTile)) then
+			begin
+				p := 0;
+			end;
+		end;			
+	end;
+	if (p = 0) then
+	begin
+		// Spit poison at player
+		if (x > playerRecord.x) then
+		begin
+			s := lookupScreenX[playerRecord.x+1]-2;
+			tempInt := 32*lookupScreenY[y]+64;
+			for q := lookupScreenX[x]-1 to s step -1 do
+			begin
+				Screen::Poke(28672+q+tempInt,255);
+				for p := 0 to 50 do begin wait(200); end;
+				Screen::Poke(28672+q+tempInt,0);				
+			end;
+			KillPlayer();
+		end
+		else
+		begin
+			s := lookupScreenX[playerRecord.x]+1;
+			tempInt := 32*lookupScreenY[y]+64;
+			for q := lookupScreenX[x]+2 to s do
+			begin
+				Screen::Poke(28672+q+tempInt,255);
+				for p := 0 to 50 do begin wait(200); end;
+				Screen::Poke(28672+q+tempInt,0);				
+			end;
+			KillPlayer();
+		end;
+	end;
+end;
+
+// Draw player tile
+procedure DrawPlayerTile();
+begin
+	v := playerRecord.animationFrame;
+	if (playerRecord.facingDirection = true) then
+	begin
+		DrawSprite(playerRecord.x, playerRecord.y, PlayerTile+v);
+	end
+	else
+	begin
+		DrawSprite(playerRecord.x, playerRecord.y, PlayerTile+v+2);
+	end;
+end;
+
 // Draw room tiles to screen
 procedure DrawRoomTiles();
 begin
@@ -154,7 +241,7 @@ begin
 					begin
 						playerRecord.x := x;
 						playerRecord.y := y;
-						DrawSprite(x, y, u);
+						DrawPlayerTile();
 					end;
 				DiamondTile:
 					begin
@@ -168,6 +255,14 @@ begin
 					end;
 				SnakeTile:
 					begin
+						// Set direction snake faces, based on player location
+						snakeRecord.facingDirection := true;
+						if (x > playerRecord.x) then
+						begin
+							snakeRecord.facingDirection := false;
+						end;
+						// Player is at same y-value as snake
+						SnakeAttackPlayer(x,y);
 						v := snakeRecord.animationFrame;
 						if (snakeRecord.facingDirection = true) then
 						begin
@@ -178,18 +273,6 @@ begin
 							DrawSprite(x, y, u+v+4);
 						end;					
 					end;
-				PlayerTile:
-					begin
-						v := playerRecord.animationFrame;
-						if (playerRecord.facingDirection = true) then
-						begin
-							DrawSprite(x, y, u+v);
-						end
-						else
-						begin
-							DrawSprite(x, y, u+v+2);
-						end;											
-				end;
 			else
 			begin
 				DrawSprite(x, y, u);

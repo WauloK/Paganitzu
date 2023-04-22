@@ -25,9 +25,6 @@ begin
 	playerRecord.frameCount := 2;
 	playerRecord.lastDirection := 1;
 	playerRecord.facingDirection := true;
-	
-	
-	//Loop();
 end;
 
 // Update diamond tile state
@@ -85,8 +82,9 @@ end;
 
 procedure UpdateTileStates();
 begin
+	UpdatePlayerTile();
 	UpdateDiamondTile();
 	UpdateSnakeTile();
 	UpdateSpiderTile();
-	UpdatePlayerTile();
+	DrawRoomTiles();
 end;
