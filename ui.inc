@@ -96,6 +96,7 @@ procedure UpdateHUDNumbers();
 begin
 	Screen::SetPen(2);
 	Screen::SetPaper(0);
+	// Draw score
 	DrawPadded(gameStats.score,26,20);
 	// Draw room number
 	Functions::ByteToString(gameStats.room);

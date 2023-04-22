@@ -11,10 +11,10 @@ program Paganitzu;
 @export "resources/titlescreen.flf" "trse.bin" 256
 
 @include "variables.inc"
+@include "ui.inc"
 @include "audio.inc"
 @include "player.inc"
 @include "gamemanager.inc"
-@include "ui.inc"
 	
 begin
 	Memory::DisableInterrupts();

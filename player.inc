@@ -1,8 +1,8 @@
 // All keys collected. Player hit Keyhole tile
-//procedure EndLevel();
-//begin
-	// Code goes here. TODO
-//end;
+procedure EndLevel();
+begin
+	FxPlay(sfxKeyhole);
+end;
 
 // Perform some sort of action based on what tile the player is on
 procedure PlayerActionTile();
@@ -19,11 +19,25 @@ begin
 			return;
 		KeyholeTile:
 			begin
-				//EndLevel();
+				EndLevel();
+			end;
+		KeyTile:
+			begin
+				gameStats.keysLeft := gameStats.keysLeft -1;
+				UpdateHUDNumbers();
+				if (gameStats.keysLeft = 0) then
+				begin
+					FxPlay(sfxNoKeys);
+				end
+				else
+				begin
+					FxPlay(sfxKey);
+				end;
 			end;
 		DiamondTile:
 			begin
 				gameStats.score := gameStats.score + 1;
+				UpdateHUDNumbers();
 				FxPlay(sfxDiamond);
 			end;
 		else
@@ -59,6 +73,11 @@ begin
 			begin
 				if (gameStats.keysLeft > 0) then b := false;
 			end;
+	end;
+	// Can't walk on pipes
+	if (r > SpikesShaftTile and (r < DiamondTile)) then
+	begin
+		b := false;
 	end;
 	// Player movement sound effect
 	if (b = true) then FxPlay(sfxMove);

@@ -26,7 +26,7 @@ begin
 	case r of
 		sfxMove:
 			begin
-				Sound::Shoot(100,100);
+				Sound::Play(100,5);
 			end;
 		sfxDiamond:
 			begin
@@ -42,7 +42,8 @@ begin
 			begin
 				Sound::Play(130,120);
 				Sound::Play(120,120);
-				Sound::Play(110,320);
+				Sound::Play(110,220);
+				wait(100);
 				Sound::Play(120,200);
 				Sound::Play(130,350);
 			end;	
@@ -55,7 +56,7 @@ begin
 			end;
 		sfxDied:
 			begin
-					DeathMarch();
+				DeathMarch();
 			end;
 		sfxStart:
 			begin
@@ -64,6 +65,14 @@ begin
 				Sound::Play(110,50);
 				Sound::Play(120,50);
 				Sound::Play(100,50);
+			end;
+		sfxNoKeys:
+			begin
+				wait(100);
+				Sound::Play(100,45);
+				Sound::Play(90,45);
+				Sound::Play(80,45);
+				Sound::Play(70,45);
 			end;
 	end;
 end;
