@@ -54,11 +54,6 @@ end;
 procedure DrawPadded(zscore : Integer; x, y: global byte);
 begin
 	u := x;
-//	if (zscore < 1) then 
-//	begin
-//		Font::DrawTextAt("0",u+6,y,false);
-//		return;
-//	end;
 	if (zscore < 10000) then x := x + 1;
 	if (zscore < 1000) then x := x + 1;
 	if (zscore < 100) then x := x + 1;
@@ -226,6 +221,28 @@ begin
 	end;
 end;
 
+// Draw Snake tile
+procedure DrawSnakeTile();
+begin
+	// Set direction snake faces, based on player location
+	gameGrid[x+lookupGridY[y]] := SnakeTile;
+	if (x > playerRecord.x) then
+	begin
+		gameGrid[x+lookupGridY[y]] := SnakeLeftTile;
+	end;
+	// Player is at same y-value as snake
+	SnakeAttackPlayer(x,y);
+	v := snakeRecord.animationFrame;
+	if (gameGrid[x+lookupGridY[y]] = SnakeTile) then
+	begin
+		DrawSprite(x, y, u+v);
+	end
+	else
+	begin
+		DrawSprite(x, y, u+v);
+	end;		
+end;
+
 // Draw room tiles to screen
 procedure DrawRoomTiles();
 begin
@@ -255,23 +272,11 @@ begin
 					end;
 				SnakeTile:
 					begin
-						// Set direction snake faces, based on player location
-						snakeRecord.facingDirection := true;
-						if (x > playerRecord.x) then
-						begin
-							snakeRecord.facingDirection := false;
-						end;
-						// Player is at same y-value as snake
-						SnakeAttackPlayer(x,y);
-						v := snakeRecord.animationFrame;
-						if (snakeRecord.facingDirection = true) then
-						begin
-							DrawSprite(x, y, u+v);
-						end
-						else
-						begin
-							DrawSprite(x, y, u+v+4);
-						end;					
+						DrawSnakeTile();
+					end;
+				SnakeLeftTile:
+					begin
+						DrawSnakeTile();
 					end;
 			else
 			begin

@@ -74,14 +74,12 @@ var
 	spiderTile_record = record
 			animationFrame : byte;
 			frameCount : byte;
-			frameDelay : byte;
 	end;
 	spiderRecord : spiderTile_record;
 	
 	snakeTile_record = record
 			animationFrame : byte;
 			frameCount : byte;
-			facingDirection : boolean; // ( false = left, true = right )
 	end;
 	snakeRecord : snakeTile_record;
 	
