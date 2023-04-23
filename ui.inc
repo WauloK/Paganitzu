@@ -127,6 +127,8 @@ begin
 		case r of
 			0:
 				gameGrid[u] := Room0[u];
+			1:
+				gameGrid[u] := Room1[u];
 		end;
 	end;
 end;
@@ -140,8 +142,16 @@ end;
 // Player died
 procedure KillPlayer();
 begin
-	FxPlay(sfxDied);
-	Loop();
+	gameStats.lives := gameStats.lives -1;
+	if (gameStats.lives = 0) then
+	begin
+		FxPlay(sfxGameOver);
+	end
+	else
+	begin
+		FxPlay(sfxDied);
+		playerRecord.isDead := false;
+	end;
 end;
 
 // Check if snake spits poison at player
@@ -190,7 +200,7 @@ begin
 				for p := 0 to 50 do begin wait(200); end;
 				Screen::Poke(28672+q+tempInt,0);				
 			end;
-			KillPlayer();
+			playerRecord.isDead := true;
 		end
 		else
 		begin
@@ -202,7 +212,7 @@ begin
 				for p := 0 to 50 do begin wait(200); end;
 				Screen::Poke(28672+q+tempInt,0);				
 			end;
-			KillPlayer();
+			playerRecord.isDead := true;
 		end;
 	end;
 end;
@@ -240,9 +250,37 @@ begin
 	else
 	begin
 		DrawSprite(x, y, u+v);
-	end;		
+	end;	
 end;
 
+// Check if player adjacent to spider
+procedure CheckPlayerSpider();
+begin
+	if (u = PlayerTile) then
+	begin
+		playerRecord.isDead := true;
+	end;
+end;
+
+// Draw Spider tile
+procedure DrawSpiderTile();
+begin
+	// Check for player adjacent
+	u := gameGrid[x-1+lookupGridY[y]];
+	CheckPlayerSpider();
+	u := gameGrid[x+1+lookupGridY[y]];
+	CheckPlayerSpider();
+	u := gameGrid[x+lookupGridY[y-1]];
+	CheckPlayerSpider();
+	u := gameGrid[x+lookupGridY[y+1]];
+	CheckPlayerSpider();
+	if (playerRecord.isDead = true) then
+	begin
+		return;
+	end;
+	v := spiderRecord.animationFrame;
+	DrawSprite(x, y, SpiderTile+v);
+end;
 // Draw room tiles to screen
 procedure DrawRoomTiles();
 begin
@@ -265,10 +303,21 @@ begin
 						v := diamondRecord.animationFrame;
 						DrawSprite(x, y, u+v);
 					end;
-				SpiderTile:
+				SpiderTileLeft:
 					begin
-						v := spiderRecord.animationFrame;
-						DrawSprite(x, y, u+v);					
+						DrawSpiderTile();					
+					end;
+				SpiderTileUp:
+					begin
+						DrawSpiderTile();					
+					end;
+				SpiderTileRight:
+					begin
+						DrawSpiderTile();
+					end;
+				SpiderTileDown:
+					begin
+						DrawSpiderTile();
 					end;
 				SnakeTile:
 					begin

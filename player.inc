@@ -165,6 +165,11 @@ begin
 	p := Input::GetJoystick(1);
 	q := Input::GetJoystick(2);
 	s := Input::GetPressedKey();	// Scan for key values separately
+	// Is player dead already?
+	if (playerRecord.isDead = true) then
+	begin
+		KillPlayer();
+	end;
 	
 	// Check for movement
 	if (p = Input::Joy_None and (q = Input::Joy_None and (s = Input::Key_None))) then return;

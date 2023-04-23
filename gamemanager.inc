@@ -1,7 +1,7 @@
 // Reset Player and game stats
 procedure ResetGameStats();
 begin
-	gameStats.room := 0;
+	gameStats.room := 1;
 	gameStats.score := 0;
 	gameStats.bonus := 400;
 	gameStats.keysLeft := levelKeys[gameStats.room];
@@ -24,6 +24,7 @@ begin
 	playerRecord.frameCount := 2;
 	playerRecord.lastDirection := 1;
 	playerRecord.facingDirection := true;
+	playerRecord.isDead := false;
 end;
 
 // Update diamond tile state

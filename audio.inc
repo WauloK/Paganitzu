@@ -54,7 +54,7 @@ begin
 				Sound::Play(70,60);
 				Sound::Play(30,60);
 			end;
-		sfxDied:
+		sfxGameOver:
 			begin
 				DeathMarch();
 			end;
@@ -73,6 +73,14 @@ begin
 				Sound::Play(90,45);
 				Sound::Play(80,45);
 				Sound::Play(70,45);
+			end;
+		sfxDied:
+			begin
+				Sound::Play(500,25);
+				Sound::Play(600,25);
+				Sound::Play(700,25);
+				Sound::Play(800,25);
+				Sound::Play(900,25);
 			end;
 	end;
 end;

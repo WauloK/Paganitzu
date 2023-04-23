@@ -29,7 +29,7 @@ begin
 	// Reset Game stats variables
 	ResetGameStats();
 	// Copy current room data to grid array
-	CopyRoomToGameGrid(0);
+	CopyRoomToGameGrid(1);
 	// Draw tiles in the room.
 	DrawRoomTiles();
 
