@@ -4,25 +4,79 @@ begin
 	FxPlay(sfxKeyhole);
 end;
 
-// Perform some sort of action based on what tile the player is on
-procedure PlayerActionTile();
+// Move rock if possible
+procedure ActionRockTile(x,y : global byte);
 begin
-	u := playerRecord.x;
-	v := playerRecord.y;
-	r := gameGrid[u+lookupGridY[v]];
+	// Has rock moved flag?
+	q := 0; // 1 if rock moves
+	// Check tile left
+	if (playerRecord.lastDirection = 0) then
+	begin
+		x := x -1;
+		p := gameGrid[x+lookupGridY[y]];
+	end;
+	// Check tile right
+	if (playerRecord.lastDirection = 1) then
+	begin
+		x := x +1;
+		p := gameGrid[x+lookupGridY[y]];
+	end;
+	// Check tile above
+	if (playerRecord.lastDirection = 2) then
+	begin
+		y := y -1;
+		p := gameGrid[x+lookupGridY[y]];
+	end;
+	// Check tile below
+	if (playerRecord.lastDirection = 3) then
+	begin
+		y := y +1;
+		p := gameGrid[x+lookupGridY[y]];
+	end;
+	// Change tile if blank
+	if (p = BlankTile) then
+	begin
+		gameGrid[x+lookupGridY[y]] := RockTile;
+		q := 1;
+	end;
+	// Change tile if Water
+	if (p = WaterTile) then
+	begin
+		gameGrid[x+lookupGridY[y]] := BlankTile;
+		q := 1;
+	end;
+end;
+
+procedure ChangeTileToPlayer(x,y : global byte);
+begin
 	// Change tile to player
-	gameGrid[u+lookupGridY[v]] := playerTile;
+	gameGrid[x+lookupGridY[y]] := playerTile;
+	q := 1; // Player moved
+end;
+
+// Perform some sort of action based on what tile the player is on
+function PlayerActionTile(x,y : global byte) : byte;
+begin
+	r := gameGrid[x+lookupGridY[y]];
+	q := 1; // Player has moved
 	case r of
 		BlankTile:
-			return;
+			begin
+				ChangeTileToPlayer(x,y);
+				return;
+			end;
 		DirtTile:
-			return;
+			begin
+				ChangeTileToPlayer(x,y);
+				return;
+			end;
 		KeyholeTile:
 			begin
 				EndLevel();
 			end;
 		KeyTile:
 			begin
+				ChangeTileToPlayer(x,y);
 				gameStats.keysLeft := gameStats.keysLeft -1;
 				gameStats.score := gameStats.score + 1;
 				UpdateHUDNumbers();
@@ -37,15 +91,17 @@ begin
 			end;
 		DiamondTile:
 			begin
+				ChangeTileToPlayer(x,y);
 				gameStats.score := gameStats.score + 5;
 				UpdateHUDNumbers();
 				FxPlay(sfxDiamond);
 			end;
-		else
-		begin
-			return;
+		RockTile:
+			begin
+				ActionRockTile(x,y);
+			end;
 		end;
-	//end;
+	PlayerActionTile := q;
 end;
 
 // Check if player tile can move to new pos
@@ -121,10 +177,15 @@ begin
 		begin
 			if (CheckTileAt(playerRecord.x, playerRecord.y-1) = true) then
 			begin
-				SetTileToBlank(playerRecord.x, playerRecord.y);
-				playerRecord.y := playerRecord.y -1;
 				playerRecord.lastDirection := 2;
-				PlayerActionTile();
+				q := PlayerActionTile(playerRecord.x, playerRecord.y-1);
+				if (q = 1) then
+				begin
+					SetTileToBlank(playerRecord.x, playerRecord.y);
+					DrawSprite(playerRecord.x, playerRecord.y, BlankTile);
+					playerRecord.y := playerRecord.y -1;
+					ChangeTileToPlayer(playerRecord.x,playerRecord.y);
+				end;
 			end;
 		end;
 	end;
@@ -136,14 +197,19 @@ begin
 		begin
 			if (CheckTileAt(playerRecord.x, playerRecord.y+1) = true) then
 			begin
-				SetTileToBlank(playerRecord.x, playerRecord.y);
-				playerRecord.y := playerRecord.y +1;
 				playerRecord.lastDirection := 3;
-				PlayerActionTile();
+				q := PlayerActionTile(playerRecord.x, playerRecord.y+1);
+				if (q = 1) then
+				begin
+					SetTileToBlank(playerRecord.x, playerRecord.y);
+					DrawSprite(playerRecord.x, playerRecord.y, BlankTile);
+					playerRecord.y := playerRecord.y +1;
+					ChangeTileToPlayer(playerRecord.x,playerRecord.y);
+				end;
 			end;
 		end;
 	end;
-	// Up
+	// Left
 	if (p = Input::Joy_Left or (q = Input::Joy_Left or (s = Input::Key_M))) then
 	begin
 		// Can't move up if at top of screen
@@ -151,16 +217,20 @@ begin
 		begin
 			if (CheckTileAt(playerRecord.x-1, playerRecord.y) = true) then
 			begin
-				SetTileToBlank(playerRecord.x, playerRecord.y);
-				DrawSprite(playerRecord.x, playerRecord.y, BlankTile);
-				playerRecord.x := playerRecord.x -1;
 				playerRecord.lastDirection := 0;
-				playerRecord.facingDirection := false;
-				PlayerActionTile();
+				q := PlayerActionTile(playerRecord.x-1, playerRecord.y);
+				if (q = 1) then
+				begin
+					SetTileToBlank(playerRecord.x, playerRecord.y);
+					DrawSprite(playerRecord.x, playerRecord.y, BlankTile);
+					playerRecord.x := playerRecord.x -1;
+					ChangeTileToPlayer(playerRecord.x,playerRecord.y);
+					playerRecord.facingDirection := false;
+				end;
 			end;
 		end;
 	end;
-	// Down
+	// Right
 	if (p = Input::Joy_Right or (q = Input::Joy_Right or (s = Input::Key_COMMA))) then
 	begin
 		// Can't move up if at top of screen
@@ -168,12 +238,16 @@ begin
 		begin
 			if (CheckTileAt(playerRecord.x+1, playerRecord.y) = true) then
 			begin
-				SetTileToBlank(playerRecord.x, playerRecord.y);
-				DrawSprite(playerRecord.x, playerRecord.y, BlankTile);
-				playerRecord.x := playerRecord.x +1;
 				playerRecord.lastDirection := 1;
-				playerRecord.facingDirection := true;
-				PlayerActionTile();
+				q := PlayerActionTile(playerRecord.x+1, playerRecord.y);
+				if (q = 1) then
+				begin
+					SetTileToBlank(playerRecord.x, playerRecord.y);
+					DrawSprite(playerRecord.x, playerRecord.y, BlankTile);
+					playerRecord.x := playerRecord.x +1;
+					ChangeTileToPlayer(playerRecord.x,playerRecord.y);
+					playerRecord.facingDirection := true;
+				end;
 			end;
 		end;
 	end;

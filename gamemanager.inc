@@ -19,7 +19,6 @@ begin
 	
 	snakeRecord.animationFrame := 0;
 	snakeRecord.frameCount := 3;
-	snakeRecord.facingDirection := true;
 	
 	playerRecord.animationFrame := 0;
 	playerRecord.frameCount := 2;
