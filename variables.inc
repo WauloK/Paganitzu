@@ -44,6 +44,8 @@ var
 	const SpiderTileUp : byte = 36;
 	const SpiderTileRight : byte = 37;
 	const SpiderTileDown : byte = 48;
+	const SpiderTileRightScanned : byte = 49;
+	const SpiderTileDownScanned : byte = 50;
 	
 	const sfxMove : byte = 0;
 	const sfxDiamond : byte = 1;
@@ -119,5 +121,5 @@ var
  							 BrickTile, BlankTile, BrickTile, BrickTile, BrickTile, BlankTile, DiamondTile, BlankTile, BrickTile, BrickTile, BrickTile, BlankTile, BrickTile,
  							 BrickTile, BlankTile, BrickTile, BrickTile, BrickTile, BlankTile, DiamondTile, BlankTile, BrickTile, BrickTile, BrickTile, BlankTile, BrickTile,
  							 BrickTile, BlankTile, BrickTile, KeyTile, BrickTile, BlankTile, DiamondTile, BlankTile, BrickTile, KeyTile, BrickTile, BlankTile, BrickTile,
-							 BrickTile, BlankTile, BlankTile, SpiderTileRight, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, SpiderTileRight, BlankTile, BlankTile, BrickTile,
+							 BrickTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BrickTile,
 							 BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, KeyholeTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile);

@@ -285,7 +285,6 @@ begin
 	if (u > SpikesShaftTile and (u < DiamondTile)) then begin
 		MakeTileDiamond(p,q);
 	end;
-	
 end;
 
 // Check if tiles can be changed
@@ -330,27 +329,95 @@ begin
 	end;
 	// Move spider
 	u := gameGrid[x+lookupGridY[y]];
-//	if (u = SpiderTileLeft) then
-//	begin
-//		u := gameGrid[x+lookupGridY[y+1]];
-//		if (u = BlankTile) then
-//		begin
-//			gameGrid[x+lookupGridY[y]] := BlankTile;
-//			gameGrid[x+lookupGridY[y+1]] := SpiderTileDown;
-//		end
-//		else
-//		begin
-//			u := gameGrid[x-1+lookupGridY[y]];
-//			if (u = BlankTile) then begin
-//				gameGrid[x+lookupGridY[y]] := BlankTile;
-//				gameGrid[x+lookupGridY[y]] := SpiderTileLeft;
-//			end
-//			else
-//			begin
-//				gameGrid[x+lookupGridY[y]] := SpiderTileRight;
-//			end;
-//		end;
-//	end;
+	// Spider is 'facing' left
+	if (u = SpiderTileLeft) then
+	begin
+		u := gameGrid[x+lookupGridY[y+1]];
+		if (u = BlankTile) then
+		begin
+			gameGrid[x+lookupGridY[y]] := BlankTile;
+			gameGrid[x+lookupGridY[y+1]] := SpiderTileDownScanned;
+		end
+		else
+		begin
+			u := gameGrid[x-1+lookupGridY[y]];
+			if (u = BlankTile) then begin
+				gameGrid[x+lookupGridY[y]] := BlankTile;
+				gameGrid[x-1+lookupGridY[y]] := SpiderTileLeft;
+			end
+			else
+			begin
+				gameGrid[x+lookupGridY[y]] := SpiderTileRight;
+			end;
+		end;
+	end;
+	// Spider is 'facing' down.
+	if (u = SpiderTileDown) then
+	begin
+		u := gameGrid[x+1+lookupGridY[y]];
+		if (u = BlankTile) then
+		begin
+			gameGrid[x+lookupGridY[y]] := BlankTile;
+			gameGrid[x+1+lookupGridY[y]] := SpiderTileRightScanned;
+		end
+		else
+		begin
+			u := gameGrid[x+lookupGridY[y+1]];
+			if (u = BlankTile) then begin
+				gameGrid[x+lookupGridY[y]] := BlankTile;
+				gameGrid[x+lookupGridY[y+1]] := SpiderTileDownScanned;
+			end
+			else
+			begin
+				gameGrid[x+lookupGridY[y]] := SpiderTileUp;
+			end;
+		end;
+	end;
+	// Spider is 'facing' right
+	if (u = SpiderTileRight) then
+	begin
+		u := gameGrid[x+lookupGridY[y-1]];
+		if (u = BlankTile) then
+		begin
+			gameGrid[x+lookupGridY[y]] := BlankTile;
+			gameGrid[x+lookupGridY[y-1]] := SpiderTileUp;
+		end
+		else
+		begin
+			u := gameGrid[x+1+lookupGridY[y]];
+			if (u = BlankTile) then begin
+				gameGrid[x+lookupGridY[y]] := BlankTile;
+				gameGrid[x+1+lookupGridY[y]] := SpiderTileRightScanned;
+			end
+			else
+			begin
+				gameGrid[x+lookupGridY[y]] := SpiderTileLeft;
+			end;
+		end;
+	end;
+	// Spider is 'facing' down.
+	if (u = SpiderTileUp) then
+	begin
+		u := gameGrid[x-1+lookupGridY[y]];
+		if (u = BlankTile) then
+		begin
+			gameGrid[x+lookupGridY[y]] := BlankTile;
+			gameGrid[x-1+lookupGridY[y]] := SpiderTileLeft;
+		end
+		else
+		begin
+			u := gameGrid[x+lookupGridY[y-1]];
+			if (u = BlankTile) then begin
+				gameGrid[x+lookupGridY[y]] := BlankTile;
+				gameGrid[x+lookupGridY[y-1]] := SpiderTileUp;
+			end
+			else
+			begin
+				gameGrid[x+lookupGridY[y]] := SpiderTileRightScanned;
+			end;
+		end;
+	end;
+	
 	v := spiderRecord.animationFrame;
 	DrawSprite(x, y, SpiderTile+v);
 end;
@@ -400,9 +467,23 @@ begin
 					begin
 						DrawSnakeTile();
 					end;
+				SpiderTileDownScanned:
+					begin
+						gameGrid[x+lookupGridY[y]] := SpiderTileDown;
+					end;
 			else
 			begin
-				DrawSprite(x, y, u);
+				if (u <> SpiderTileRightScanned) then
+				begin
+					DrawSprite(x, y, u);					
+				end;
+			end;
+			// Reset SpiderTileRightScanned
+			if (y > 0) then begin
+				u := gameGrid[x+lookupGridY[y-1]];
+				if (u = SpiderTileRightScanned) then begin
+					gameGrid[x+lookupGridY[y-1]] := SpiderTileRight;
+				end;
 			end;
 		end;
 	end;	
