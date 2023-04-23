@@ -254,30 +254,103 @@ begin
 end;
 
 // Check if player adjacent to spider
-procedure CheckPlayerSpider();
+procedure CheckPlayerOrBlocked();
 begin
 	if (u = PlayerTile) then
 	begin
 		playerRecord.isDead := true;
 	end;
+	if (u > BlankTile) then
+	begin
+		v := v +1;
+	end;
+end;
+
+// Make tile diamond
+procedure MakeTileDiamond(p,q : global byte);
+begin
+	gameGrid[p+lookupGridY[q]] := DiamondTile;
+end;
+
+// Turn tiles into diamonds
+procedure TurnTilesToDiamonds(p,q,u : global byte);
+begin
+	case u of
+		RockTile:
+			MakeTileDiamond(p,q);
+		DirtTile:
+			MakeTileDiamond(p,q);
+	end;
+	// Pipes
+	if (u > SpikesShaftTile and (u < DiamondTile)) then begin
+		MakeTileDiamond(p,q);
+	end;
+	
+end;
+
+// Check if tiles can be changed
+procedure CheckSpiderDiamonds(x,y : global byte);
+begin
+	u := gameGrid[x-1+lookupGridY[y]];
+	TurnTilesToDiamonds(x-1,y,u);
+	u := gameGrid[x+1+lookupGridY[y]];
+	TurnTilesToDiamonds(x+1,y,u);
+	u := gameGrid[x+lookupGridY[y-1]];
+	TurnTilesToDiamonds(x,y-1,u);
+	u := gameGrid[x+lookupGridY[y+1]];
+	TurnTilesToDiamonds(x,y+1,u);
 end;
 
 // Draw Spider tile
-procedure DrawSpiderTile();
+procedure DrawSpiderTile(x,y : global byte);
 begin
-	// Check for player adjacent
+	// Check for player adjacent or blocked
+	v := 0; // if v = 4 then all directions blocked
 	u := gameGrid[x-1+lookupGridY[y]];
-	CheckPlayerSpider();
+	CheckPlayerOrBlocked();
 	u := gameGrid[x+1+lookupGridY[y]];
-	CheckPlayerSpider();
+	CheckPlayerOrBlocked();
 	u := gameGrid[x+lookupGridY[y-1]];
-	CheckPlayerSpider();
+	CheckPlayerOrBlocked();
 	u := gameGrid[x+lookupGridY[y+1]];
-	CheckPlayerSpider();
+	CheckPlayerOrBlocked();
+	// Touching player
 	if (playerRecord.isDead = true) then
 	begin
 		return;
 	end;
+	// Blocked
+	if (v = 4) then
+	begin
+		// Turn spider into diamond
+		gameGrid[x+lookupGridY[y]] := DiamondTile;
+		// Check around spider to turn to diamonds
+		CheckSpiderDiamonds(x,y);
+		return;
+	end;
+	// Move spider
+	u := gameGrid[x+lookupGridY[y]];
+//	if (u = SpiderTileLeft) then
+//	begin
+//		u := gameGrid[x+lookupGridY[y+1]];
+//		if (u = BlankTile) then
+//		begin
+//			gameGrid[x+lookupGridY[y]] := BlankTile;
+//			gameGrid[x+lookupGridY[y+1]] := SpiderTileDown;
+//		end
+//		else
+//		begin
+//			u := gameGrid[x-1+lookupGridY[y]];
+//			if (u = BlankTile) then begin
+//				gameGrid[x+lookupGridY[y]] := BlankTile;
+//				gameGrid[x+lookupGridY[y]] := SpiderTileLeft;
+//			end
+//			else
+//			begin
+//				gameGrid[x+lookupGridY[y]] := SpiderTileRight;
+//			end;
+//		end;
+//	end;
 	v := spiderRecord.animationFrame;
 	DrawSprite(x, y, SpiderTile+v);
 end;
@@ -305,19 +378,19 @@ begin
 					end;
 				SpiderTileLeft:
 					begin
-						DrawSpiderTile();					
+						DrawSpiderTile(x,y);					
 					end;
 				SpiderTileUp:
 					begin
-						DrawSpiderTile();					
+						DrawSpiderTile(x,y);					
 					end;
 				SpiderTileRight:
 					begin
-						DrawSpiderTile();
+						DrawSpiderTile(x,y);
 					end;
 				SpiderTileDown:
 					begin
-						DrawSpiderTile();
+						DrawSpiderTile(x,y);
 					end;
 				SnakeTile:
 					begin
