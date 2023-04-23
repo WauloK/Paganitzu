@@ -129,6 +129,44 @@ begin
 				gameGrid[u] := Room0[u];
 			1:
 				gameGrid[u] := Room1[u];
+			2:
+				gameGrid[u] := Room2[u];
+//			3:
+//				gameGrid[u] := Room3[u];
+//			4:
+//				gameGrid[u] := Room4[u];
+//			5:
+//				gameGrid[u] := Room5[u];
+//			6:
+//				gameGrid[u] := Room6[u];
+//			7:
+//				gameGrid[u] := Room7[u];
+//			8:
+//				gameGrid[u] := Room8[u];
+//			9:
+//				gameGrid[u] := Room9[u];
+//			10:
+//				gameGrid[u] := Room10[u];
+//			11:
+//				gameGrid[u] := Room11[u];
+//			12:
+//				gameGrid[u] := Room12[u];
+//			13:
+//				gameGrid[u] := Room1[3u];
+//			14:
+//				gameGrid[u] := Room14[u];
+//			15:
+//				gameGrid[u] := Room15[u];
+//			16:
+//				gameGrid[u] := Room16[u];
+//			17:
+//				gameGrid[u] := Room17[u];
+//			18:
+//				gameGrid[u] := Room18[u];
+//			19:
+//				gameGrid[u] := Room19[u];
+//			20:
+//				gameGrid[u] := Room20[u];
 		end;
 	end;
 end;
