@@ -125,8 +125,6 @@ begin
 	for u := 0 to gridWidth*gridHeight do
 	begin
 		case r of
-			0:
-				gameGrid[u] := Room0[u];
 			1:
 				gameGrid[u] := Room1[u];
 			2:
@@ -137,10 +135,10 @@ begin
 				gameGrid[u] := Room4[u];
 			5:
 				gameGrid[u] := Room5[u];
-//			6:
-//				gameGrid[u] := Room6[u];
-//			7:
-//				gameGrid[u] := Room7[u];
+			6:
+				gameGrid[u] := Room6[u];
+			7:
+				gameGrid[u] := Room7[u];
 //			8:
 //				gameGrid[u] := Room8[u];
 //			9:
@@ -189,6 +187,7 @@ begin
 	begin
 		FxPlay(sfxDied);
 		playerRecord.isDead := false;
+		gameStats.keysLeft := levelKeys[gameStats.room];
 	end;
 end;
 

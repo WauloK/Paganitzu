@@ -105,8 +105,8 @@ var
 	TileData: array[] of byte = (000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 068, 068, 021, 085, 081, 068, 021, 085, 021, 084, 085, 021, 021, 084, 068, 017, 042, 168, 213, 086, 213, 086, 213, 086, 213, 086, 213, 086, 213, 086, 063, 252, 170, 170, 149, 085, 149, 085, 149, 085, 170, 170, 085, 149, 085, 149, 085, 149, 042, 168, 215, 214, 223, 246, 223, 246, 215, 214, 215, 214, 213, 086, 063, 252, 017, 016, 017, 016, 017, 016, 017, 016, 017, 016, 017, 016, 017, 016, 017, 016, 000, 000, 000, 000, 255, 255, 085, 085, 085, 085, 255, 255, 000, 000, 000, 000, 013, 112, 013, 112, 013, 112, 013, 112, 013, 112, 013, 112, 013, 112, 013, 112, 013, 112, 013, 112, 253, 112, 085, 112, 085, 112, 255, 192, 000, 000, 000, 000, 013, 112, 013, 112, 013, 127, 013, 085, 013, 085, 003, 255, 000, 000, 000, 000, 000, 000, 000, 000, 003, 255, 013, 085, 013, 085, 013, 127, 013, 112, 013, 112, 000, 000, 000, 000, 255, 192, 085, 112, 085, 112, 253, 112, 013, 112, 013, 112, 013, 112, 013, 112, 253, 127, 085, 085, 085, 085, 253, 127, 013, 112, 013, 112, 002, 192, 010, 240, 042, 252, 170, 255, 255, 170, 063, 168, 015, 160, 003, 128, 002, 192, 010, 240, 042, 252, 170, 255, 085, 170, 021, 168, 005, 160, 001, 128, 001, 192, 005, 240, 021, 252, 085, 255, 255, 085, 063, 084, 015, 080, 003, 064, 002, 064, 010, 080, 042, 084, 170, 085, 255, 170, 063, 168, 015, 160, 003, 128, 252, 000, 204, 000, 255, 000, 003, 192, 000, 240, 003, 060, 000, 012, 000, 048, 034, 032, 034, 032, 170, 168, 017, 016, 017, 016, 017, 016, 017, 016, 085, 084, 015, 240, 063, 124, 255, 223, 255, 255, 255, 255, 251, 255, 062, 252, 015, 240, 042, 168, 170, 170, 170, 170, 170, 170, 170, 170, 170, 170, 170, 170, 042, 168, 128, 002, 143, 242, 047, 248, 015, 240, 131, 194, 047, 248, 011, 224, 032, 008, 000, 000, 143, 242, 143, 242, 047, 248, 003, 192, 047, 248, 139, 226, 008, 032, 002, 064, 010, 160, 042, 160, 040, 000, 010, 128, 064, 160, 032, 040, 010, 160, 000, 144, 002, 168, 010, 128, 010, 040, 002, 160, 016, 168, 032, 040, 010, 160, 000, 036, 000, 170, 002, 160, 002, 138, 002, 160, 004, 168, 032, 040, 010, 160, 000, 144, 002, 168, 010, 168, 010, 000, 002, 160, 016, 168, 032, 040, 010, 160, 001, 128, 010, 160, 010, 168, 000, 040, 002, 160, 010, 001, 040, 008, 010, 160, 006, 000, 042, 128, 002, 160, 040, 160, 010, 128, 042, 004, 040, 008, 010, 160, 024, 000, 170, 000, 010, 128, 162, 128, 010, 128, 042, 016, 040, 008, 010, 160, 006, 000, 042, 128, 042, 160, 000, 160, 010, 128, 042, 004, 040, 008, 010, 160, 015, 192, 015, 144, 013, 072, 006, 168, 005, 064, 003, 000, 003, 000, 002, 128, 015, 192, 015, 144, 013, 072, 006, 168, 005, 064, 015, 192, 044, 192, 032, 160, 003, 240, 006, 240, 033, 112, 042, 144, 001, 080, 000, 192, 000, 192, 002, 128, 003, 240, 006, 240, 033, 112, 042, 144, 001, 080, 003, 240, 003, 056, 010, 008);
 	
 	// Levels data
-	levelKeys: array[] of byte = (2, 4, 6, 1, 4, 6);
-	Room0: array[] of byte = (WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, BrickTile, BrickTile, BrickTile, PipeTile+1, BrickTile,
+	levelKeys: array[] of byte = (2, 4, 6, 1, 4, 6, 2);
+	Room1: array[] of byte = (WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, BrickTile, BrickTile, BrickTile, PipeTile+1, BrickTile,
 							 WallTile, PlayerTile, WallTile, WallTile, WallTile, WallTile, WaterTile, WaterTile, PipeTile, PipeTile+5, BrickTile, PipeTile+1, BrickTile,
 							 WallTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WaterTile, WaterTile, BrickTile, PipeTile+3, PipeTile, PipeTile+2, BrickTile,
 							 WallTile, BlankTile, RockTile, WallTile, WallTile, BlankTile, DirtTile, DirtTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
@@ -115,7 +115,7 @@ var
 							 BrickTile, KeyTile, BlankTile, BlankTile, BlankTile, BlankTile, DiamondTile, DiamondTile, DiamondTile, BrickTile, BrickTile, BrickTile, PipeTile+1,
 							 BrickTile, BrickTile, BrickTile, BrickTile, KeyholeTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, PipeTile+1);
 							 
-	Room1: array[] of byte = (BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, PlayerTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
+	Room2: array[] of byte = (BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, PlayerTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
 							 BrickTile, BlankTile, BlankTile, SpiderTileLeft, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, SpiderTileLeft, BlankTile, BlankTile, BrickTile,
  							 BrickTile, BlankTile, BrickTile, KeyTile, BrickTile, BlankTile, DiamondTile, BlankTile, BrickTile, KeyTile, BrickTile, BlankTile, BrickTile,
  							 BrickTile, BlankTile, BrickTile, BrickTile, BrickTile, BlankTile, DiamondTile, BlankTile, BrickTile, BrickTile, BrickTile, BlankTile, BrickTile,
@@ -124,7 +124,7 @@ var
 							 BrickTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BrickTile,
 							 BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, KeyholeTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile);
 
-	Room2: array[] of byte = (WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, KeyholeTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile,  
+	Room3: array[] of byte = (WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, KeyholeTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile,  
 							 WallTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, KeyTile, BlankTile, BlankTile, WallTile, WallTile, WallTile, WallTile, 
 							 WallTile, BlankTile, BrickTile, BlankTile, RockTile, BlankTile, KeyTile, BlankTile, BlankTile, WallTile, WallTile, WallTile, WallTile,
 							 WallTile, BlankTile, BrickTile, BlankTile, BlankTile, BlankTile, BlankTile, KeyTile, BlankTile, BlankTile, BlankTile, SnakeTile, WallTile,
@@ -133,7 +133,7 @@ var
 							 WallTile, PlayerTile, BrickTile, BrickTile, BlankTile, KeyTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, SnakeTile, WallTile,
 							 WallTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, PipeTile, PipeTile, PipeTile, PipeTile, PipeTile, PipeTile, PipeTile);
 
-	Room3: array[] of byte = (PipeTile+1, BrickTile, BrickTile, KeyholeTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
+	Room4: array[] of byte = (PipeTile+1, BrickTile, BrickTile, KeyholeTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
 							 WaterTile, WaterTile, BrickTile, PlayerTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, 
 							 WaterTile, WaterTile, BrickTile, BlankTile, WallTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WallTile, 
 							 BrickTile, BrickTile, BrickTile, BlankTile, RockTile, BlankTile, BlankTile, DiamondTile, DiamondTile, DiamondTile, DiamondTile, BlankTile, WallTile, 
@@ -142,7 +142,7 @@ var
 							 BrickTile, BrickTile, KeyTile, BrickTile, WallTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, SpiderTileLeft, BlankTile, WallTile, 
 							 BrickTile, BrickTile, BrickTile, BrickTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile);
 							 
-	Room4: array[] of byte = (BrickTile, KeyholeTile, BrickTile, PipeTile+3, PipeTile, PipeTile, PipeTile, PipeTile, PipeTile, WaterTile, PipeTile, PipeTile, PipeTile+5,
+	Room5: array[] of byte = (BrickTile, KeyholeTile, BrickTile, PipeTile+3, PipeTile, PipeTile, PipeTile, PipeTile, PipeTile, WaterTile, PipeTile, PipeTile, PipeTile+5,
 							 BrickTile, KeyTile,   WaterTile, WaterTile, BlankTile, BlankTile, BlankTile, RockTile, BlankTile, WaterTile, KeyTile,   KeyTile, PipeTile+1,
 							 PipeTile+4, PipeTile, WaterTIle, WaterTile, DiamondTile, BlankTile, BlankTile, RockTile, BlankTile, WaterTile, RockTile, DirtTIle, PipeTile+1,
 							 PipeTile+1, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, PipeTile+3, 
@@ -151,7 +151,7 @@ var
 							 PipeTile+4, PipeTile, PipeTile+2, BlankTile, BlankTile, BlankTile, SpiderTileLeft, PipeTile+1, BlankTile, BlankTile, BlankTile, DiamondTile, PipeTile+1, 
 							 PipeTile+3, PipeTile, PipeTile, PipeTile, PipeTile, PipeTile, PipeTile, PipeTile+2, BrickTile, BrickTile, PipeTile+4, PipeTile, PipeTile+2);
 	
-	Room5: array[] of byte = (BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
+	Room6: array[] of byte = (BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile,
 							 BrickTile, BlankTile, BlankTile, KeyTile,   RockTile,  RockTile,  PlayerTile, RockTile, RockTile,  RockTile,  BlankTile, KeyTile,   BrickTile,
 							 BrickTile, RockTile,  BlankTile, RockTile, BlankTile, BlankTile, BlankTile, RockTile, BlankTile, RockTile,  BlankTile, BlankTile, BrickTile,
 							 BrickTile, KeyTile,   RockTile,  BlankTile, RockTile, RockTile, RockTile,  BlankTile, BlankTile, RockTile,  RockTile,  RockTile,  BrickTile,
@@ -159,3 +159,13 @@ var
 							 BrickTile, RockTile,  KeyTile,   RockTile,  KeyTile,   RockTile,  BlankTile, BlankTile,  BlankTile, RockTile,  RockTile,  WaterTile, BrickTile,
 							 BrickTile, BlankTile, BlankTile, BlankTile, BlankTile, RockTile,  BlankTile, RockTile,  BlankTile, RockTile,  BlankTile, KeyTile,   KeyholeTile,
 							 BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile, BrickTile);
+	
+	Room7: array[] of byte = (WallTile,  WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile,  
+							KeyholeTile,DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, WallTile,
+							 WallTile,  DirtTile, RockTile, DirtTile, DirtTile, DirtTile, RockTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, WallTile,
+							 WallTile,  DirtTile, DirtTile, BlankTile,BlankTile, BlankTile, DirtTile, BlankTile, BlankTile, BlankTile, DirtTile, DirtTile, WallTile,
+							 WallTile,  DirtTile, DirtTile, BlankTile, KeyTile, SpiderTileLeft, DirtTile,  BlankTile, KeyTile, SpiderTileLeft, DirtTile, DirtTile, WallTile,
+							 WallTile,  DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, WallTile,
+							 WallTile,  DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, DirtTile, PlayerTile, WallTile,
+							 WallTile,  WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile, WallTile);
+							 
