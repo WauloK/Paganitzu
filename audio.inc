@@ -36,7 +36,7 @@ begin
 			end;
 		sfxRock:
 			begin
-				Sound::Shoot(1500,3500);
+				Sound::Play(1500,5);
 			end;
 		sfxKeyhole:
 			begin

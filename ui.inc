@@ -131,8 +131,8 @@ begin
 				gameGrid[u] := Room1[u];
 			2:
 				gameGrid[u] := Room2[u];
-//			3:
-//				gameGrid[u] := Room3[u];
+			3:
+				gameGrid[u] := Room3[u];
 //			4:
 //				gameGrid[u] := Room4[u];
 //			5:
@@ -459,6 +459,7 @@ begin
 	v := spiderRecord.animationFrame;
 	DrawSprite(x, y, SpiderTile+v);
 end;
+
 // Draw room tiles to screen
 procedure DrawRoomTiles();
 begin

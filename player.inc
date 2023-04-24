@@ -45,6 +45,10 @@ begin
 		gameGrid[x+lookupGridY[y]] := BlankTile;
 		q := 1;
 	end;
+	if (q = 1) then
+	begin
+		FxPlay(sfxRock);
+	end;
 end;
 
 procedure ChangeTileToPlayer(x,y : global byte);
@@ -169,6 +173,11 @@ begin
 	if (playerRecord.isDead = true) then
 	begin
 		KillPlayer();
+		if (gameStats.lives > 0) then
+		begin
+			CopyRoomToGameGrid(gameStats.room);
+			DrawRoomTiles();
+		end;
 	end;
 	
 	// Check for movement
