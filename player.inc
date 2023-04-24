@@ -130,6 +130,8 @@ begin
 			b := false;
 		SnakeTile:
 			b := false;
+		SpikesHeadTileActive:
+			b := false;
 		KeyholeTile:
 			begin
 				if (gameStats.keysLeft > 0) then b := false;

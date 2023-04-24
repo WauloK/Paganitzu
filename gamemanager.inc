@@ -1,10 +1,10 @@
 // Reset Player and game stats
 procedure ResetGameStats();
 begin
-	gameStats.room := 9;
+	gameStats.room := 10;
 	gameStats.score := 0;
 	gameStats.bonus := 400;
-	gameStats.keysLeft := levelKeys[gameStats.room];
+	gameStats.keysLeft := levelKeys[gameStats.room-1];
 	gameStats.hiScore := 0;
 	gameStats.lives := 3;
 	

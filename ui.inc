@@ -143,8 +143,8 @@ begin
 				gameGrid[u] := Room8[u];
 			9:
 				gameGrid[u] := Room9[u];
-//			10:
-//				gameGrid[u] := Room10[u];
+			10:
+				gameGrid[u] := Room10[u];
 //			11:
 //				gameGrid[u] := Room11[u];
 //			12:
@@ -187,8 +187,58 @@ begin
 	begin
 		FxPlay(sfxDied);
 		playerRecord.isDead := false;
-		gameStats.keysLeft := levelKeys[gameStats.room];
+		gameStats.keysLeft := levelKeys[gameStats.room-1];
 	end;
+end;
+
+// Move spikes if player above
+procedure DrawSpikesHeadTile(x,y : global byte);
+begin
+	if (u = SpikesHeadTileActive) then
+	begin
+		DrawSprite(x, y, SpikesHeadTile);
+	end
+	else
+	begin
+		DrawSprite(x, y, u);	
+	end;
+	if (u = SpikesHeadTile) then
+	begin
+		// Only activate if player above
+		if (playerRecord.x <> x) then return;
+		if (playerRecord.y > y) then return;
+		// Check tiles between player and spikehead
+		v := 0; // No tiles blocking
+		for p := y-1 to playerRecord.y step -1 do
+		begin
+			if (gameGrid[x+lookupGridY[p]] > BlankTile) then
+			begin
+				return;
+			end;
+		end;
+		// Player is above spikes
+		u := gameGrid[x+lookupGridY[y-1]];
+		if (u = BlankTile) then
+		begin
+			gameGrid[x+lookupGridY[y-1]] := SpikesHeadTileActive;
+			gameGrid[x+lookupGridY[y]] := SpikesShaftTile;
+		end;
+	end
+	else
+	begin
+		// Keep movin' on up!
+		u := gameGrid[x+lookupGridY[y-1]];	
+		if (u = PlayerTile) then
+		begin
+			playerRecord.isDead := true;
+		end;	
+		if (u = BlankTile) then
+		begin
+			gameGrid[x+lookupGridY[y-1]] := SpikesHeadTileActive;
+			gameGrid[x+lookupGridY[y]] := SpikesShaftTile;
+		end;
+	end;
+
 end;
 
 // Check if snake spits poison at player
@@ -508,6 +558,14 @@ begin
 				SpiderTileDownScanned:
 					begin
 						gameGrid[x+lookupGridY[y]] := SpiderTileDown;
+					end;
+				SpikesHeadTile:
+					begin
+						DrawSpikesHeadTile(x,y);
+					end;
+				SpikesHeadTileActive:
+					begin
+						DrawSpikesHeadTile(x,y);
 					end;
 			else
 			begin
