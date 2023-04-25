@@ -24,6 +24,7 @@ begin
 	// Check tile above
 	if (playerRecord.lastDirection = 2) then
 	begin
+		if (y =0) then begin q:=1; end;
 		y := y -1;
 		p := gameGrid[x+lookupGridY[y]];
 	end;
@@ -51,6 +52,23 @@ begin
 	end;
 end;
 
+// Player died
+procedure KillPlayer();
+begin
+	gameStats.lives := gameStats.lives -1;
+	if (gameStats.lives = 0) then
+	begin
+		FxPlay(sfxGameOver);
+	end
+	else
+	begin
+		FxPlay(sfxDied);
+		playerRecord.isDead := false;
+		gameStats.keysLeft := levelKeys[gameStats.room-1];
+	end;
+end;
+
+// Change a tile to the PlayerTile
 procedure ChangeTileToPlayer(x,y : global byte);
 begin
 	// Change tile to player

@@ -13,9 +13,9 @@ program Paganitzu;
 @include "variables.inc"
 @include "audio.inc"
 @include "ui.inc"
-@include "player.inc"
+
 @include "gamemanager.inc"
-	
+@include "player.inc"
 begin
 	Memory::DisableInterrupts();
 	// Set Graphics mode
@@ -49,7 +49,11 @@ begin
 		begin
 			gameStats.bonus := 400;
 		end;
-		UpdateTileStates();
+		UpdatePlayerTile();
+		UpdateDiamondTile();
+		UpdateSnakeTile();
+		UpdateSpiderTile();
+		DrawRoomTiles();
 	end;
 	Loop();
 end.
