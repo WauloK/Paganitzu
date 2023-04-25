@@ -135,7 +135,7 @@ begin
 	end
 	else
 	begin
-		DrawSprite(playerRecord.x, playerRecord.y, PlayerTile+v+2);
+		DrawSprite(playerRecord.x, playerRecord.y, PlayerTile+2+v);
 	end;
 end;
 
@@ -166,8 +166,8 @@ begin
 				gameGrid[u] := Room9[u];
 			10:
 				gameGrid[u] := Room10[u];
-//			11:
-//				gameGrid[u] := Room11[u];
+			11:
+				gameGrid[u] := Room11[u];
 //			12:
 //				gameGrid[u] := Room12[u];
 //			13:

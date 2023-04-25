@@ -1,7 +1,7 @@
 // Reset Player and game stats
 procedure ResetGameStats();
 begin
-	gameStats.room := 10;
+	gameStats.room := 11;
 	gameStats.score := 0;
 	gameStats.bonus := 400;
 	gameStats.keysLeft := levelKeys[gameStats.room-1];
@@ -42,9 +42,12 @@ begin
 	begin
 		// Only activate if player above
 		if (playerRecord.x <> x) then return;
-		if (playerRecord.y > y) then return;
+		// Player standing on spikes
+		if (gameGrid[x+lookupGridY[y-1]] = PlayerTile) then
+		begin
+			playerRecord.isDead := true;
+		end;
 		// Check tiles between player and spikehead
-		v := 0; // No tiles blocking
 		for p := y-1 to playerRecord.y step -1 do
 		begin
 			if (gameGrid[x+lookupGridY[p]] > BlankTile) then
@@ -169,6 +172,7 @@ begin
 	begin
 		playerRecord.isDead := true;
 	end;
+	// Check Spider surrounding tiles
 	if (u > BlankTile) then
 	begin
 		v := v +1;
@@ -223,11 +227,6 @@ begin
 	CheckPlayerOrBlocked();
 	u := gameGrid[x+lookupGridY[y+1]];
 	CheckPlayerOrBlocked();
-	// Touching player
-	if (playerRecord.isDead = true) then
-	begin
-		return;
-	end;
 	// Blocked
 	if (v = 4) then
 	begin
@@ -289,7 +288,7 @@ begin
 	if (u = SpiderTileRight) then
 	begin
 		u := gameGrid[x+lookupGridY[y-1]];
-		if (u = BlankTile) then
+		if (u = BlankTile and (y > 0)) then
 		begin
 			gameGrid[x+lookupGridY[y]] := BlankTile;
 			gameGrid[x+lookupGridY[y-1]] := SpiderTileUp;
@@ -319,19 +318,26 @@ begin
 		end
 		else
 		begin
-			u := gameGrid[x+lookupGridY[y-1]];
-			if (u = BlankTile) then
+			if (y = 0) then
 			begin
-				gameGrid[x+lookupGridY[y]] := BlankTile;
-				gameGrid[x+lookupGridY[y-1]] := SpiderTileUp;
+				gameGrid[x+lookupGridY[y+1]] := BlankTile;
+				gameGrid[x+lookupGridY[y]] := SpiderTileDown;
 			end
 			else
 			begin
-				gameGrid[x+lookupGridY[y]] := SpiderTileRightScanned;
+				u := gameGrid[x+lookupGridY[y-1]];
+				if (u = BlankTile) then
+				begin
+					gameGrid[x+lookupGridY[y]] := BlankTile;
+					gameGrid[x+lookupGridY[y-1]] := SpiderTileUp;
+				end
+				else
+				begin
+					gameGrid[x+lookupGridY[y]] := SpiderTileRightScanned;
+				end;
 			end;
 		end;
 	end;
-	
 	v := spiderRecord.animationFrame;
 	DrawSprite(x, y, SpiderTile+v);
 end;

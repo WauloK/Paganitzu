@@ -66,7 +66,6 @@ begin
 	else
 	begin
 		FxPlay(sfxDied);
-		playerRecord.isDead := false;
 		gameStats.keysLeft := levelKeys[gameStats.room-1];
 	end;
 end;
@@ -198,11 +197,17 @@ begin
 		KillPlayer();
 		if (gameStats.lives > 0) then
 		begin
+			// Stop tile actions detecting player above
+			playerRecord.x := 0;
+			playerRecord.y := 0;
+			playerRecord.facingDirection := true;
+			playerRecord.isDead := false;
 			CopyRoomToGameGrid(gameStats.room);
 			DrawRoomTiles();
+			return;
 		end;
 	end;
-	
+
 	// Check for movement
 	if (p = Input::Joy_None and (q = Input::Joy_None and (s = Input::Key_None))) then return;
 	
