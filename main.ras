@@ -16,44 +16,37 @@ program Paganitzu;
 
 @include "gamemanager.inc"
 @include "player.inc"
+
 begin
 	Memory::DisableInterrupts();
-	// Set Graphics mode
-	Screen::SetMode(1);
-	// Display Titlescreen
-	TitleScreen();
-	// Draw Game HUD
-	DrawHUD();
-	// Play game start sound
-	FxPlay(sfxStart);
-	// Reset Game stats variables
-	ResetGameStats();
-	// Copy current room data to grid array
-	CopyRoomToGameGrid(gameStats.room);
-	// Draw tiles in the room.
-	DrawRoomTiles();
+	gameStats.gameRunning := false;
 
-	
-	// Test
-
+	// Main Gameloop
 	while (1) do
 	begin
-		// TESTING!!!
-		Screen::WaitForVerticalBlank();
+		// Set Graphics mode
+		Screen::SetMode(1);
+		Screen::Cls(1);
+		// Display Title screen
+		TitleScreen();
+		// Play game start sound
+		FxPlay(sfxStart);
+		// Reset Game stats variables
+		ResetGameStats();
+		// Copy current room data to grid array
+		CopyRoomToGameGrid(gameStats.room);
+		DrawHUD();
 		UpdateHUDNumbers();
-		if (gameStats.bonus > 0) then
+			
+		while (gameStats.gameRunning = true) do
 		begin
-			gameStats.bonus := gameStats.bonus -1;
-		end
-		else
-		begin
-			gameStats.bonus := 400;
+			Screen::WaitForVerticalBlank();
+			UpdateBonus();
+			UpdatePlayerTile();
+			UpdateDiamondTile();
+			UpdateSnakeTile();
+			UpdateSpiderTile();
+			DrawRoomTiles();
 		end;
-		UpdatePlayerTile();
-		UpdateDiamondTile();
-		UpdateSnakeTile();
-		UpdateSpiderTile();
-		DrawRoomTiles();
 	end;
-	Loop();
 end.

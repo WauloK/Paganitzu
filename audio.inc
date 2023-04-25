@@ -82,5 +82,17 @@ begin
 				Sound::Play(800,25);
 				Sound::Play(900,25);
 			end;
+		sfxResetLevel:
+			begin
+				Sound::Play(30,120);
+				Sound::Play(20,120);
+				Sound::Play(10,220);
+				wait(100);
+				Sound::Play(20,200);
+				Sound::Play(30,350);
+				Sound::Play(40,350);
+				Sound::Play(45,350);
+				Sound::Play(50,350);
+			end;
 	end;
 end;

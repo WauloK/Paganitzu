@@ -1,3 +1,43 @@
+// Show Instructions
+procedure ShowInstructions();
+begin
+	Screen::Cls(1);
+	// Set Sprite data to main game data
+	Sprite::SetSize(2,8);
+	Sprite::SetData(#TileData);
+	Sprite::DrawAt(0,0,PlayerTile, false);
+	Screen::SetPen(2);
+	Font::DrawTextAt("Andre collects diamonds",3,2,false);
+	Sprite::DrawAt(0,8,SnakeTile, false);
+	Screen::SetPen(3);
+	Font::DrawTextAt("Block snakes to stop poison",3,10,false);	
+	Sprite::DrawAt(0,16,SpiderTile+1, false);
+	Screen::SetPen(2);
+	Font::DrawTextAt("Trapped spiders make diamonds",3,18,false);
+	Sprite::DrawAt(0,24,KeyTile, false);
+	Screen::SetPen(3);
+	Font::DrawTextAt("Collect keys to unlock door",3,26,false);
+	Sprite::DrawAt(0,32,KeyholeTile, false);
+	Screen::SetPen(2);
+	Font::DrawTextAt("Escape to next level via door",3,34,false);
+	Sprite::DrawAt(0,40,SpikesHeadTile, false);
+	Screen::SetPen(3);
+	Font::DrawTextAt("Spikes shoot up at Andre",3,42, false);
+	Sprite::DrawAt(0,48,RockTile, false);
+	Screen::SetPen(2);
+	Font::DrawTextAt("Push rocks into water",3,50, false);	
+	Screen::SetPen(1);
+	Font::DrawTextAt("Press SPACE for main menu",3,58,false);	
+	while (s <> Input::Key_SPC) do
+	begin
+		s := Input::GetPressedKey();
+	end;
+	// Decompress the image to the screen
+	Compression::Decompress(#titledata, #screen);
+	v := 0;
+	strpos := 0;
+end;
+
 // Draw and manage Title Screen
 procedure TitleScreen();
 begin
@@ -23,6 +63,8 @@ begin
 		begin
 				gameStats.gameRunning := true;
 		end;
+		if (Input::GetPressedKey() = Input::Key_I) then
+		ShowInstructions();
 		// Draw new char in the onscreen scroll every 4 pixels
 		if (v = 0) then
 		begin
@@ -41,7 +83,6 @@ end;
 // In-game HUD
 procedure DrawHUD();
 begin
-	Screen::Cls(1);
 	Sprite::SetSize(6,64);
 	Sprite::SetData(#HUDData);
 	Sprite::DrawAt(26,0,0,false);
@@ -89,6 +130,13 @@ begin
 	Font::DrawTextAt(#Functions_s,x,y,false);	
 end;
 
+// Update Bonus HUD
+procedure UpdateBonusHUD();
+begin
+	// Draw bonus points aka timer
+	DrawBonusPadded(gameStats.bonus,27,59);
+end;
+
 // Update HUD numbers
 procedure UpdateHUDNumbers();
 begin
@@ -115,8 +163,6 @@ begin
 	Functions::ByteToString(gameStats.keysLeft);
 	Font::DrawTextAt(#Functions_s,29,46,false);
 	Font::DrawTextAt("0",28,46,false);
-	// Draw bonus points aka timer
-	DrawBonusPadded(gameStats.bonus,27,59);
 end;
 
 // Room Tiles Sprite draw common routine

@@ -1,9 +1,9 @@
 // Reset Player and game stats
 procedure ResetGameStats();
 begin
-	gameStats.room := 20;
+	gameStats.room := 1;
 	gameStats.score := 0;
-	gameStats.bonus := 400;
+	gameStats.bonus := BonusValue;
 	gameStats.keysLeft := levelKeys[gameStats.room-1];
 	gameStats.hiScore := 0;
 	gameStats.lives := 3;
@@ -471,4 +471,14 @@ begin
 			end;
 		end;
 	end;	
+end;
+
+// Decrease bonus value
+procedure UpdateBonus();
+begin
+	if (gameStats.bonus > 0) then
+	begin
+		gameStats.bonus := gameStats.bonus -1;
+		UpdateBonusHUD();
+	end;
 end;

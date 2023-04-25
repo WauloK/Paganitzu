@@ -5,7 +5,7 @@ var
 	strpos, p, q, r, s, u, v, x, y : byte;
 	b : boolean;
 	tempInt : Integer;
-	message : string = "Press 'S' or Fire to start! Welcome to Paganitzu! Explore the dark caverns underneath Paganitzu temple! Use Joysticks or Keys: QA = Up/Down M, = Left/Right. Check out BlueBilby.com ... ";
+	message : string = "Press 'S' or Fire to start or 'I' for instructions! Welcome to Paganitzu! Help Andre explore the dark caverns underneath Paganitzu temple! Use Joysticks or Keys: QA = Up/Down M, = Left/Right R = Reset Level. Check out BlueBilby.com ... ";
 	strlen : byte;
 	titledata : incbin("trse.bin") compressed;
 	
@@ -57,11 +57,13 @@ var
 	const sfxStart : byte = 6;
 	const sfxNoKeys : byte = 7;
 	const sfxGameOver : byte = 8;
+	const sfxResetLevel : byte = 9;
 	
 	const gridWidth : byte = 13;
 	const gridHeight : byte = 8;
 	
 	const NumberOfRooms : byte = 1;
+	const BonusValue : byte = 1400;
 	
 	// Store current level live data
 	gameGrid : array[gridWidth*gridHeight] of byte;

@@ -2,6 +2,35 @@
 procedure EndLevel();
 begin
 	FxPlay(sfxKeyhole);
+	// Load next level
+	gameStats.room := gameStats.room +1;
+	// Copy current room data to grid array
+	CopyRoomToGameGrid(gameStats.room);
+	DrawRoomTiles();
+	// Draw Game HUD
+	DrawHUD();
+	// Get keys left for level 
+	gameStats.keysLeft := levelKeys[gameStats.room-1];
+	// Reset bonus timer
+	gameStats.bonus := BonusValue;
+	// Give extra points
+	gameStats.score := gameStats.score + 100;
+	// Give extra lives every 3 levels
+	case gameStats.room of
+		3:
+			gameStats.lives := gameStats.lives + 1;
+		6:
+			gameStats.lives := gameStats.lives + 1;
+		9:
+			gameStats.lives := gameStats.lives + 1;
+		12:
+			gameStats.lives := gameStats.lives + 1;
+		15:
+			gameStats.lives := gameStats.lives + 1;
+		18:
+			gameStats.lives := gameStats.lives + 1;
+	end;
+	UpdateHUDNumbers();
 end;
 
 // Move rock if possible
@@ -59,15 +88,22 @@ end;
 procedure KillPlayer();
 begin
 	gameStats.lives := gameStats.lives -1;
+	UpdateHUDNumbers();
 	if (gameStats.lives = 0) then
 	begin
+		Font::DrawTextAt("                    ",6,25,false);
+		Font::DrawTextAt("  G A M E  O V E R  ",6,30,false);
+		Font::DrawTextAt("                    ",6,35,false);		
 		FxPlay(sfxGameOver);
+		gameStats.gameRunning := false;
 	end
 	else
 	begin
 		FxPlay(sfxDied);
 		gameStats.keysLeft := levelKeys[gameStats.room-1];
 	end;
+	v := 0;
+	strpos := 0;
 end;
 
 // Change a tile to the PlayerTile
@@ -184,6 +220,25 @@ begin
 	gameGrid[u+lookupGridY[v]] := blankTile;
 end;
 
+// Reset level 
+procedure ResetLevel();
+begin
+	Font::DrawTextAt("                    ",6,25,false);
+	Font::DrawTextAt("  RESETTING LEVEL!  ",6,30,false);
+	Font::DrawTextAt("                    ",6,35,false);
+	FxPlay(sfxResetLevel);
+	// Copy current room data to grid array
+	CopyRoomToGameGrid(gameStats.room);
+	DrawRoomTiles();
+	// Draw Game HUD
+	DrawHUD();
+	UpdateHUDNumbers();
+	// Get keys left for level 
+	gameStats.keysLeft := levelKeys[gameStats.room-1];
+	// Reset bonus timer
+	gameStats.bonus := BonusValue;
+end;
+
 // Things to do with player tile
 procedure UpdatePlayerTile();
 begin
@@ -211,6 +266,11 @@ begin
 	// Check for movement
 	if (p = Input::Joy_None and (q = Input::Joy_None and (s = Input::Key_None))) then return;
 	
+	// Reset level 
+	if (s = Input::Key_R) then
+	begin
+		ResetLevel();
+	end;
 	// Up
 	if (p = Input::Joy_Up or (q = Input::Joy_Up or (s = Input::Key_Q))) then
 	begin
