@@ -168,12 +168,12 @@ begin
 				gameGrid[u] := Room10[u];
 			11:
 				gameGrid[u] := Room11[u];
-//			12:
-//				gameGrid[u] := Room12[u];
-//			13:
-//				gameGrid[u] := Room1[3u];
-//			14:
-//				gameGrid[u] := Room14[u];
+			12:
+				gameGrid[u] := Room12[u];
+			13:
+				gameGrid[u] := Room13[u];
+			14:
+				gameGrid[u] := Room14[u];
 //			15:
 //				gameGrid[u] := Room15[u];
 //			16:
