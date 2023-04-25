@@ -174,8 +174,8 @@ begin
 				gameGrid[u] := Room13[u];
 			14:
 				gameGrid[u] := Room14[u];
-//			15:
-//				gameGrid[u] := Room15[u];
+			15:
+				gameGrid[u] := Room15[u];
 //			16:
 //				gameGrid[u] := Room16[u];
 //			17:
