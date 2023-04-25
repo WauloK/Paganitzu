@@ -4,6 +4,8 @@ begin
 	FxPlay(sfxKeyhole);
 	// Load next level
 	gameStats.room := gameStats.room +1;
+	// Dissolve screen
+	ClsFx();
 	// Copy current room data to grid array
 	CopyRoomToGameGrid(gameStats.room);
 	DrawRoomTiles();
@@ -95,6 +97,8 @@ begin
 		Font::DrawTextAt("  G A M E  O V E R  ",6,30,false);
 		Font::DrawTextAt("                    ",6,35,false);		
 		FxPlay(sfxGameOver);
+		ClsFx();
+		Screen::Cls(1);
 		gameStats.gameRunning := false;
 	end
 	else

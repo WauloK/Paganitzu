@@ -42,11 +42,11 @@ begin
 		begin
 			Screen::WaitForVerticalBlank();
 			UpdateBonus();
-			UpdatePlayerTile();
 			UpdateDiamondTile();
 			UpdateSnakeTile();
 			UpdateSpiderTile();
 			DrawRoomTiles();
+			UpdatePlayerTile();
 		end;
 	end;
 end.

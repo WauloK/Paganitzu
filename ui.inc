@@ -1,7 +1,116 @@
+
+// Clear screen fx
+procedure ClsFx();
+begin
+	asm("
+    ld b,0x00
+clsloop
+    push bc
+	ld a,b
+    cp 0
+    jp nz,clsq1
+    ld hl,0x7000  ; Position counter
+    ld b,0x20     ; Lines down counter
+clsloop0    
+    ld c,0x20     ; Lines across counter
+clsloop00
+    ld a,(hl)
+    and 0x33
+    ld (hl),a
+    inc hl
+    dec c
+    jr nz,clsloop00
+    ld de,0x20
+    add hl,de
+    dec b
+    jr nz,clsloop0
+    jr clsq4
+clsq1
+    cp 1
+    jp nz,clsq2
+    ld hl,0x7020  ; Position counter
+    ld b,0x20     ; Lines down counter
+clsloop01   
+    ld c,0x20     ; Lines across counter
+clsloop11
+    ld a,(hl)
+    and 0xcc
+    ld (hl),a
+    inc hl
+    dec c
+    jr nz,clsloop11
+    ld de,0x20
+    add hl,de
+    dec b
+    jr nz,clsloop02
+    jr clsq4 
+clsq2
+    cp 2
+    jp nz,clsq3
+    ld hl,0x7000  ; Position counter
+    ld b,0x20     ; Lines down counter
+clsloop02   
+    ld c,0x20     ; Lines across counter
+clsloop22
+    ld a,(hl)
+    and 0x03
+    ld (hl),a
+    inc hl
+    dec c
+    jr nz,clsloop22
+    ld de,0x20
+    add hl,de
+    dec b
+    jr nz,clsloop02
+    jr clsq4 
+clsq3
+    cp 3
+    jp nz,clsq4
+    ld hl,0x7020  ; Position counter
+    ld b,0x20     ; Lines down counter
+clsloop03  
+    ld c,0x20     ; Lines across counter
+clsloop33
+    ld a,(hl)
+    and 0xc0
+    ld (hl),a
+    inc hl
+    dec c
+    jr nz,clsloop33
+    ld de,0x20
+    add hl,de
+    dec b
+    jr nz,clsloop03
+clsq4
+	ld bc,0x30ff
+wait
+	dec bc
+	ld a,c
+	or b
+	jr nz,wait
+	pop bc
+	inc b
+	ld a,b
+	cp 5
+	jp nz,clsloop
+  ");
+end;
+
+// Clear screen, scrolling left
+procedure ClsFx2();
+begin
+	// Scroll titlescreen off to the left
+	for v := 0 to 32 do
+	begin
+		Screen::doCoarseScroll(28672,64);
+		for u := 0 to 30 do wait(140);	
+	end;
+end;
+
 // Show Instructions
 procedure ShowInstructions();
 begin
-	Screen::Cls(1);
+	ClsFx2();
 	// Set Sprite data to main game data
 	Sprite::SetSize(2,8);
 	Sprite::SetData(#TileData);
@@ -28,10 +137,12 @@ begin
 	Font::DrawTextAt("Push rocks into water",3,50, false);	
 	Screen::SetPen(1);
 	Font::DrawTextAt("Press SPACE for main menu",3,58,false);	
+	s := Input::GetPressedKey();
 	while (s <> Input::Key_SPC) do
 	begin
 		s := Input::GetPressedKey();
 	end;
+	ClsFx2();
 	// Decompress the image to the screen
 	Compression::Decompress(#titledata, #screen);
 	v := 0;
