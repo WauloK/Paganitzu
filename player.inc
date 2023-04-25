@@ -24,7 +24,6 @@ begin
 	// Check tile above
 	if (playerRecord.lastDirection = 2) then
 	begin
-		if (y =0) then begin q:=1; end;
 		y := y -1;
 		p := gameGrid[x+lookupGridY[y]];
 	end;
@@ -37,8 +36,12 @@ begin
 	// Change tile if blank
 	if (p = BlankTile) then
 	begin
-		gameGrid[x+lookupGridY[y]] := RockTile;
-		q := 1;
+		// Don't push rocks off top of screen
+		if (y < 10) then
+		begin
+			gameGrid[x+lookupGridY[y]] := RockTile;
+			q := 1;			
+		end;
 	end;
 	// Change tile if Water
 	if (p = WaterTile) then

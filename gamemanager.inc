@@ -191,7 +191,8 @@ begin
 			MakeTileDiamond(p,q);
 	end;
 	// Pipes
-	if (u > SpikesShaftTile and (u < DiamondTile)) then begin
+	if (u > SpikesShaftTile and (u < DiamondTile)) then
+	begin
 		MakeTileDiamond(p,q);
 	end;
 end;
@@ -250,7 +251,8 @@ begin
 		else
 		begin
 			u := gameGrid[x-1+lookupGridY[y]];
-			if (u = BlankTile) then begin
+			if (u = BlankTile) then
+			begin
 				gameGrid[x+lookupGridY[y]] := BlankTile;
 				gameGrid[x-1+lookupGridY[y]] := SpiderTileLeft;
 			end
@@ -272,7 +274,8 @@ begin
 		else
 		begin
 			u := gameGrid[x+lookupGridY[y+1]];
-			if (u = BlankTile) then begin
+			if (u = BlankTile) then
+			begin
 				gameGrid[x+lookupGridY[y]] := BlankTile;
 				gameGrid[x+lookupGridY[y+1]] := SpiderTileDownScanned;
 			end
@@ -294,7 +297,8 @@ begin
 		else
 		begin
 			u := gameGrid[x+1+lookupGridY[y]];
-			if (u = BlankTile) then begin
+			if (u = BlankTile) then
+			begin
 				gameGrid[x+lookupGridY[y]] := BlankTile;
 				gameGrid[x+1+lookupGridY[y]] := SpiderTileRightScanned;
 			end
@@ -316,7 +320,8 @@ begin
 		else
 		begin
 			u := gameGrid[x+lookupGridY[y-1]];
-			if (u = BlankTile) then begin
+			if (u = BlankTile) then
+			begin
 				gameGrid[x+lookupGridY[y]] := BlankTile;
 				gameGrid[x+lookupGridY[y-1]] := SpiderTileUp;
 			end
@@ -450,9 +455,11 @@ begin
 				end;
 			end;
 			// Reset SpiderTileRightScanned
-			if (y > 0) then begin
+			if (y > 0) then
+			begin
 				u := gameGrid[x+lookupGridY[y-1]];
-				if (u = SpiderTileRightScanned) then begin
+				if (u = SpiderTileRightScanned) then
+				begin
 					gameGrid[x+lookupGridY[y-1]] := SpiderTileRight;
 				end;
 			end;

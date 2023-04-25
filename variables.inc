@@ -190,8 +190,8 @@ var
 							 
 	Room10: array[] of byte =(WallTile,  BlankTile, BlankTile, WallTile, KeyTile, WallTile, KeyTile, WallTile, KeyTile, WallTile, KeyTile, WallTile, WallTile,  
 							 WallTile,  BlankTile, BlankTile, BlankTile,  BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WallTile,
-							 WallTile,  BlankTile, BlankTile, BlankTile,  BlankTile, BlankTile, BlankTile, RockTile, BlankTile, RockTile, BlankTile, BlankTile, WallTile,
-							 WallTile,  BlankTile,  RockTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WallTile,
+							 WallTile,  BlankTile, RockTile, BlankTile,  BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, RockTile, BlankTile, BlankTile, WallTile,
+							 WallTile,  BlankTile, RockTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, WallTile,
 							 WallTile,  BlankTile, BlankTile, WallTile, SpikesHeadTile, WallTile, SpikesHeadTile, WallTile, SpikesHeadTile, WallTile, SpikesHeadTile, DirtTile, WallTile,
 							 WallTile,  BlankTile, RockTile, WallTile, SnakeTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, DiamondTile, WallTile,
 							 WallTile,  PlayerTile, BlankTile, WallTile, SpiderTileRight, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, BlankTile, DiamondTile, KeyholeTile,
