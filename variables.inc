@@ -268,3 +268,12 @@ var
 							 WaterTile,  BlankTile, WaterTile, WaterTile, WaterTile, KeyTile, WaterTile,    KeyTile, WaterTile, WaterTile, WaterTile, RockTile, WaterTile,
 							 WaterTile,  KeyTile,    RockTile, KeyTile,   DirtTile,  WaterTile, WaterTile, RockTile, BlankTile, BlankTile, SpiderTileLeft, DirtTile, WaterTile,
 							 WaterTile,  WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile);
+
+	Room19: array[] of byte =(WallTile,  WallTile,  WallTile,  WallTile,  WallTile,  WallTile,  WallTile,  KeyholeTile,  WallTile,  WallTile,  WallTile,  WallTile,  WallTile,  
+							 WallTile,BlankTile,SpiderTileRight,BlankTile, BlankTile, BlankTile, WallTile, BlankTile, WallTile, BlankTile, BlankTile, KeyTile, WallTile,
+							 WallTile,  BlankTile, RockTile, BlankTile, RockTile,  BlankTile,  WallTile,  BlankTile,  WallTile, SnakeTile, BlankTile, BlankTile, WallTile,
+							 WallTile,  BlankTile, BlankTile, BlankTile, BlankTile, PipeTile+4, WaterTile, BlankTile, WallTile, WaterTile, RockTile, WaterTile, WallTile,
+							 WallTile,  BlankTile, BlankTile, BlankTile, RockTile, PipeTile+3, WaterTile, BlankTile, RockTile, BlankTile, BlankTile, BlankTile, WallTile,
+							 WallTile,DiamondTile, BlankTile, RockTile, BlankTile,DiamondTile, WallTile, BlankTile, RockTile, BlankTile, RockTile, BlankTile, WallTile,
+							 PlayerTile,BlankTile,DiamondTile, BlankTile,DiamondTile, BlankTile, WallTile, SnakeTile, BlankTile, BlankTile, BlankTile, KeyTile, WallTile,
+							 WallTile, WaterTile, WaterTile, WaterTile, WaterTile, WaterTile, PipeTile+5,  WallTile,  WallTile,  SpikesHeadTile,  WallTile,  WallTile,  WallTile);
