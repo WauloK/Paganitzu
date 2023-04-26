@@ -1,38 +1,81 @@
 // All keys collected. Player hit Keyhole tile
 procedure EndLevel();
 begin
-	FxPlay(sfxKeyhole);
-	// Load next level
-	gameStats.room := gameStats.room +1;
-	// Dissolve screen
-	ClsFx();
-	// Copy current room data to grid array
-	CopyRoomToGameGrid(gameStats.room);
-	DrawRoomTiles();
-	// Draw Game HUD
-	DrawHUD();
-	// Get keys left for level 
-	gameStats.keysLeft := levelKeys[gameStats.room-1];
-	// Reset bonus timer
-	gameStats.bonus := BonusValue;
-	// Give extra points
-	gameStats.score := gameStats.score + 100;
-	// Give extra lives every 3 levels
-	case gameStats.room of
-		3:
-			gameStats.lives := gameStats.lives + 1;
-		6:
-			gameStats.lives := gameStats.lives + 1;
-		9:
-			gameStats.lives := gameStats.lives + 1;
-		12:
-			gameStats.lives := gameStats.lives + 1;
-		15:
-			gameStats.lives := gameStats.lives + 1;
-		18:
-			gameStats.lives := gameStats.lives + 1;
+	if (gameStats.room < NumberOfRooms) then
+	begin
+		FxPlay(sfxKeyhole);
+		// Load next level
+		gameStats.room := gameStats.room +1;
+		// Dissolve screen
+		ClsFx();
+		// Copy current room data to grid array
+		CopyRoomToGameGrid(gameStats.room);
+		DrawRoomTiles();
+		// Draw Game HUD
+		DrawHUD();
+		// Get keys left for level 
+		gameStats.keysLeft := levelKeys[gameStats.room-1];
+		// Reset bonus timer
+		gameStats.bonus := BonusValue;
+		// Give extra points
+		gameStats.score := gameStats.score + 100;
+		// Give extra lives every 3 levels
+		case gameStats.room of
+			3:
+				gameStats.lives := gameStats.lives + 1;
+			6:
+				gameStats.lives := gameStats.lives + 1;
+			9:
+				gameStats.lives := gameStats.lives + 1;
+			12:
+				gameStats.lives := gameStats.lives + 1;
+			15:
+				gameStats.lives := gameStats.lives + 1;
+			18:
+				gameStats.lives := gameStats.lives + 1;
+		end;
+		UpdateHUDNumbers();
+	end
+	else
+	begin
+		// Game completed! Well done!
+		// Decompress the image to the screen
+		Compression::Decompress(#congratsdata, #screen);
+		FxPlay(sfxCongrats);
+		myp := #mychar;
+		mym := #congratsmsg;
+		strlen := Functions::SizeOfString(#congratsmsg);
+		v := 0;
+		strpos := 0;
+		Screen::SetPen(1);
+		gameStats.congratsShowing := false;
+		// Keep titlescreen going until Space or fire pressed
+		while (gameStats.congratsShowing = false) do
+		begin
+			p := Input::GetJoystick(1);
+			q := Input::GetJoystick(2);
+			if (p = Input::Joy_Fire or (q = Input::Joy_Fire or (Input::GetPressedKey() = Input::Key_SPC))) then
+			begin
+					gameStats.congratsShowing := true;
+			end;
+			// Draw new char in the onscreen scroll every 4 pixels
+			if (v = 0) then
+			begin
+				v := 4;
+				myp[0] := mym[strpos];
+				Font::DrawTextAt(#mychar,31,59,false);
+				if (strpos < strlen) then strpos := strpos + 1 else strpos := 0;
+			end;
+			for u := 0 to 200 do wait(50);	
+			// Smooth scroll the message 1 pixel at a time
+			Screen::doSmoothScroll(30591,5);
+			v := v - 1;
+		end;
+		v := 0;
+		strpos := 0;
+		gameStats.gameRunning := false;
+		ClsFx2();
 	end;
-	UpdateHUDNumbers();
 end;
 
 // Move rock if possible

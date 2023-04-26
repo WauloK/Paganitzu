@@ -8,7 +8,8 @@ program Paganitzu;
 @use "Functions"
 @use "Sprite"
 
-@export "resources/titlescreen.flf" "trse.bin" 256
+@export "resources/titlescreen.flf" "title.bin" 256
+@export "resources/congrats.flf" "congrats.bin" 256
 
 @include "variables.inc"
 @include "audio.inc"

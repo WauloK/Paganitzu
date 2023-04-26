@@ -1,4 +1,3 @@
-
 // Clear screen fx
 procedure ClsFx();
 begin
@@ -160,7 +159,7 @@ begin
 	// Decompress the image to the screen
 	Compression::Decompress(#titledata, #screen);
 	// Set up font
-		// Set pen colour
+	// Set pen colour
 	Screen::SetPen(2);
 	Screen::SetPaper(0);
 	Font::SetFont(#Font::font1);
@@ -227,6 +226,11 @@ begin
 		Font::DrawTextAt("0",u+6,y,false);
 		return;
 	end;
+	if (bscore < 1000) then
+	begin
+		Font::DrawTextAt(" ",x,y,false);
+		x := x + 1;
+	end;
 	if (bscore < 100) then
 	begin
 		Font::DrawTextAt(" ",x,y,false);
@@ -245,7 +249,7 @@ end;
 procedure UpdateBonusHUD();
 begin
 	// Draw bonus points aka timer
-	DrawBonusPadded(gameStats.bonus,27,59);
+	DrawBonusPadded(gameStats.bonus,28,59);
 end;
 
 // Update HUD numbers
@@ -344,5 +348,32 @@ begin
 			20:
 				gameGrid[u] := Room20[u];
 		end;
+	end;
+end;
+
+// Flash exit door
+procedure UpdateExitDoor(x,y : global byte);
+begin
+	if (gameStats.keysLeft = 0) then
+	begin
+		if (gameStats.exitDoorFrame = true) then
+		begin
+			gameStats.exitDoorFrame := false;
+		end
+		else
+		begin
+			gameStats.exitDoorFrame := true;
+		end;
+		if (gameStats.exitDoorFrame = true) then begin
+			DrawSprite(x, y, KeyholeTile);
+		end
+		else
+		begin
+			DrawSprite(x, y, WallTile);	
+		end;
+	end
+	else
+	begin
+		DrawSprite(x, y, KeyholeTile);
 	end;
 end;

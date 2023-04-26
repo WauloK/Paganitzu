@@ -20,6 +20,36 @@ begin
 	Sound::Play(300,255);
 end;
 
+// Game completed
+procedure CongratsTune();
+begin
+	Sound::Play(50,120);
+	Sound::Play(40,120);
+	Sound::Play(30,220);
+	Sound::Play(20,220);
+	Sound::Play(10,220);
+	wait(100);
+	Sound::Play(20,200);
+	Sound::Play(30,350);
+	Sound::Play(40,350);
+	Sound::Play(50,350);
+	Sound::Play(60,350);
+	wait(100);
+	Sound::Play(50,120);
+	Sound::Play(40,120);
+	Sound::Play(30,220);
+	Sound::Play(20,220);
+	Sound::Play(10,220);	
+end;
+
+// Resetting level tune
+procedure ResetLevelTune();
+begin
+	Sound::Play(30,120);
+	Sound::Play(20,120);
+	Sound::Play(10,220);
+end;
+
 // Play sound fx
 procedure FxPlay(r: global byte);
 begin
@@ -84,15 +114,11 @@ begin
 			end;
 		sfxResetLevel:
 			begin
-				Sound::Play(30,120);
-				Sound::Play(20,120);
-				Sound::Play(10,220);
-				wait(100);
-				Sound::Play(20,200);
-				Sound::Play(30,350);
-				Sound::Play(40,350);
-				Sound::Play(45,350);
-				Sound::Play(50,350);
+				ResetLevelTune();
+			end;
+		sfxCongrats:
+			begin
+				CongratsTune();
 			end;
 	end;
 end;

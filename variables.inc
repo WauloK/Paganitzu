@@ -6,8 +6,11 @@ var
 	b : boolean;
 	tempInt : Integer;
 	message : string = "Press 'S' or Fire to start or 'I' for instructions! Welcome to Paganitzu! Help Andre explore the dark caverns underneath Paganitzu temple! Use Joysticks or Keys: QA = Up/Down M, = Left/Right R = Reset Level. Check out BlueBilby.com ... ";
+	congratsmsg : string = "You have escaped Paganitzu temple! Well done! The Gods are pleased with you. Head back to civilization with your riches. Press 'Space' or Fire for menu ...";
 	strlen : byte;
-	titledata : incbin("trse.bin") compressed;
+	
+	titledata : incbin("title.bin") compressed;
+	congratsdata : incbin("congrats.bin") compressed;
 	
 	// Records
 	gameStats_record = record
@@ -18,7 +21,9 @@ var
 		score : Integer;
 		hiScore : Integer;
 		gameRunning : boolean;
+		congratsShowing : boolean;
 		frameDelayMax : byte;
+		exitDoorFrame : boolean;
 	end;
 	gameStats : gameStats_record;
 	
@@ -58,12 +63,13 @@ var
 	const sfxNoKeys : byte = 7;
 	const sfxGameOver : byte = 8;
 	const sfxResetLevel : byte = 9;
+	const sfxCongrats : byte = 10;
 	
 	const gridWidth : byte = 13;
 	const gridHeight : byte = 8;
 	
-	const NumberOfRooms : byte = 1;
-	const BonusValue : byte = 1400;
+	const NumberOfRooms : byte = 20;
+	const BonusValue : Integer = 1400;
 	
 	// Store current level live data
 	gameGrid : array[gridWidth*gridHeight] of byte;

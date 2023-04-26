@@ -7,6 +7,7 @@ begin
 	gameStats.keysLeft := levelKeys[gameStats.room-1];
 	gameStats.hiScore := 0;
 	gameStats.lives := 3;
+	gameStats.exitDoorFrame := false;
 	
 	diamondRecord.animationFrame := 0;
 	diamondRecord.frameCount := 3;
@@ -452,6 +453,10 @@ begin
 				SpikesHeadTileActive:
 					begin
 						DrawSpikesHeadTile(x,y);
+					end;
+				KeyholeTile:
+					begin
+						UpdateExitDoor(x,y);
 					end;
 			else
 			begin
