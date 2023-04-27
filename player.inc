@@ -15,10 +15,10 @@ begin
 		DrawHUD();
 		// Get keys left for level 
 		gameStats.keysLeft := levelKeys[gameStats.room-1];
+		// Give extra points
+		gameStats.score := gameStats.score + gameStats.bonus;
 		// Reset bonus timer
 		gameStats.bonus := BonusValue;
-		// Give extra points
-		gameStats.score := gameStats.score + 100;
 		// Give extra lives every 3 levels
 		case gameStats.room of
 			3:
@@ -147,6 +147,7 @@ begin
 	else
 	begin
 		FxPlay(sfxDied);
+		gameStats.bonus := BonusValue;
 		gameStats.keysLeft := levelKeys[gameStats.room-1];
 	end;
 	v := 0;
@@ -215,29 +216,21 @@ end;
 function CheckTileAt(u,v: global byte) : Boolean;
 begin
 	r := gameGrid[u+lookupGridY[v]];
-	b := true;
+	b := false;
 	case r of
-		WallTile:
-			b := false;
-		BrickTile:
-			b := false;
-		SpikesShaftTile:
-			b := false;
-		PipeTile:
-			b := false;
-		SpikesHeadTile:
-			b := false;
-		WaterTile:
-			b := false;
-		SpiderTile:
-			b := false;
-		SnakeTile:
-			b := false;
-		SpikesHeadTileActive:
-			b := false;
+		BlankTile:
+			b := true;
+		DirtTile:
+			b := true;
+		DiamondTile:
+			b := true;
+		KeyTile:
+			b := true;
+		RockTile:
+			b := true;
 		KeyholeTile:
 			begin
-				if (gameStats.keysLeft > 0) then b := false;
+				if (gameStats.keysLeft = 0) then b := true;
 			end;
 	end;
 	// Can't walk on pipes
@@ -318,6 +311,7 @@ begin
 	begin
 		ResetLevel();
 	end;
+	
 	// Up
 	if (p = Input::Joy_Up or (q = Input::Joy_Up or (s = Input::Key_Q))) then
 	begin

@@ -148,6 +148,22 @@ begin
 	strpos := 0;
 end;
 
+// Draw numbers on the screen padded and with trailing zeroes
+procedure DrawPadded(zscore : Integer; x, y: global byte);
+begin
+	u := x;
+	if (zscore < 10000) then x := x + 1;
+	if (zscore < 1000) then x := x + 1;
+	if (zscore < 100) then x := x + 1;
+	if (zscore < 10) then x := x + 1;
+	Functions::IntegerToString(zscore);
+	if (zscore > 0) then
+	begin
+		Font::DrawTextAt(#Functions_s,x,y,false);	
+	end;
+	Font::DrawTextAt("0",u+5,y,false);
+end;
+
 // Draw and manage Title Screen
 procedure TitleScreen();
 begin
@@ -160,9 +176,16 @@ begin
 	Compression::Decompress(#titledata, #screen);
 	// Set up font
 	// Set pen colour
-	Screen::SetPen(2);
+	Screen::SetPen(1);
 	Screen::SetPaper(0);
 	Font::SetFont(#Font::font1);
+	
+	// Display last score
+	Font::DrawTextAt("Last Score:",13,59,false);
+	DrawPadded(gameStats.score,24,59);
+
+	// Set pen colour
+	Screen::SetPen(2);
 	
 	// Keep titlescreen going until S pressed
 	while (gameStats.gameRunning = false) do
@@ -199,22 +222,6 @@ begin
 	// Set Sprite data to main game data
 	Sprite::SetSize(2,8);
 	Sprite::SetData(#TileData);
-end;
-
-// Draw numbers on the screen padded and with trailing zeroes
-procedure DrawPadded(zscore : Integer; x, y: global byte);
-begin
-	u := x;
-	if (zscore < 10000) then x := x + 1;
-	if (zscore < 1000) then x := x + 1;
-	if (zscore < 100) then x := x + 1;
-	if (zscore < 10) then x := x + 1;
-	Functions::IntegerToString(zscore);
-	if (zscore > 0) then
-	begin
-		Font::DrawTextAt(#Functions_s,x,y,false);	
-	end;
-	Font::DrawTextAt("0",u+5,y,false);
 end;
 
 // Draw numbers on the screen padded

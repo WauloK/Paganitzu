@@ -19,7 +19,6 @@ var
 		keysLeft : byte;
 		room: byte;
 		score : Integer;
-		hiScore : Integer;
 		gameRunning : boolean;
 		congratsShowing : boolean;
 		frameDelayMax : byte;
@@ -69,7 +68,7 @@ var
 	const gridHeight : byte = 8;
 	
 	const NumberOfRooms : byte = 20;
-	const BonusValue : Integer = 1400;
+	const BonusValue : Integer = 600;
 	
 	// Store current level live data
 	gameGrid : array[gridWidth*gridHeight] of byte;

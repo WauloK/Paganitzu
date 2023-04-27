@@ -1,11 +1,10 @@
 // Reset Player and game stats
 procedure ResetGameStats();
 begin
-	gameStats.room := 1;
+	gameStats.room := 0;
 	gameStats.score := 0;
 	gameStats.bonus := BonusValue;
 	gameStats.keysLeft := levelKeys[gameStats.room-1];
-	gameStats.hiScore := 0;
 	gameStats.lives := 3;
 	gameStats.exitDoorFrame := false;
 	
@@ -215,8 +214,8 @@ begin
 	TurnTilesToDiamonds(x,y+1,u);
 end;
 
-// Draw Spider tile
-procedure DrawSpiderTile(x,y : global byte);
+// Check for player 
+procedure CheckPlayerSequence(x,y : global byte);
 begin
 	// Check for player adjacent or blocked
 	v := 0; // if v = 4 then all directions blocked
@@ -227,7 +226,14 @@ begin
 	u := gameGrid[x+lookupGridY[y-1]];
 	CheckPlayerOrBlocked();
 	u := gameGrid[x+lookupGridY[y+1]];
-	CheckPlayerOrBlocked();
+	CheckPlayerOrBlocked();	
+end;
+
+// Draw Spider tile
+procedure DrawSpiderTile(x,y : global byte);
+begin
+	// Check if player adjacent
+	CheckPlayerSequence(x,y);
 	// Blocked
 	if (v = 4) then
 	begin
@@ -308,7 +314,7 @@ begin
 			end;
 		end;
 	end;
-	// Spider is 'facing' down.
+	// Spider is 'facing' up.
 	if (u = SpiderTileUp) then
 	begin
 		u := gameGrid[x-1+lookupGridY[y]];

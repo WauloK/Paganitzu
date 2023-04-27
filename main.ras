@@ -21,7 +21,8 @@ program Paganitzu;
 begin
 	Memory::DisableInterrupts();
 	gameStats.gameRunning := false;
-
+	gameStats.score := 0;
+	
 	// Main Gameloop
 	while (1) do
 	begin
