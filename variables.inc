@@ -68,7 +68,7 @@ var
 	const gridHeight : byte = 8;
 	
 	const NumberOfRooms : byte = 20;
-	const BonusValue : Integer = 600;
+	const BonusValue : Integer = 300;
 	
 	// Store current level live data
 	gameGrid : array[gridWidth*gridHeight] of byte;
