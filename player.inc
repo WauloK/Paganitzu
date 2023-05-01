@@ -132,6 +132,8 @@ end;
 // Player died
 procedure KillPlayer();
 begin
+	// Show gave tile
+	DrawSprite(playerRecord.x,playerRecord.y,PlayerTile+4);
 	gameStats.lives := gameStats.lives -1;
 	UpdateHUDNumbers();
 	if (gameStats.lives = 0) then
